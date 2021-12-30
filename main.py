@@ -54,6 +54,7 @@ class HelloScene:  # После нажатия любой клавиши дол�
         intro_rect = string_rendered.get_rect()
         intro_rect.y = height - 100
         intro_rect.x = 0
+
         screen.blit(string_rendered, intro_rect)
 
 
