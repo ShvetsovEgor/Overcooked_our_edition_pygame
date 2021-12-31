@@ -1,7 +1,7 @@
 import pygame
-import sys
+from levelchoose import LevelChoose
 from load_image import load_image
-from button import Button, ButtonGroup
+from button import Button, buttongroup
 
 FPS = 50
 pygame.init()
@@ -25,42 +25,20 @@ class HelloScene:  # После нажатия любой клавиши дол�
                 if event.type == pygame.QUIT:
                     running = False
                 if event.type == pygame.KEYDOWN:
-                    one = Button(screen, "1P", 100, 100)
-                    two = Button(screen, "2P", 100, 200)
-                    if event.type == pygame.MOUSEBUTTONDOWN and \
-                            one.rect.collidepoint(event.pos):
-                        pass
+                    screen.fill("red")
+                    Button(screen, width // 2 - 200, height // 2, "1P")
+                    Button(screen, width // 2 + 200, height // 2, "2P")
+                for el in buttongroup:
+                    reaction = el.update(event)
+                    if reaction == "1P":
+                        LevelChoose(1)
+                    elif reaction == "2P":
+                        LevelChoose(2)
 
-                    if event.type == pygame.MOUSEBUTTONDOWN and \
-                            two.rect.collidepoint(event.pos):
-                        pass
+
 
             clock.tick(FPS)
             pygame.display.flip()
-
-            while True:
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        self.terminate()
-                    elif event.type == pygame.KEYDOWN or \
-                            event.type == pygame.MOUSEBUTTONDOWN:
-                        fon = pygame.transform.scale(load_image('fon1.png'), (width, height))
-                        screen.blit(fon, (0, 0))
-                        one = Button(screen, "1P", 100, 100)
-                        two = Button(screen, "2P", 100, 200)
-                        if event.type == pygame.MOUSEBUTTONDOWN and \
-                                one.rect.collidepoint(event.pos):
-                            pass
-
-                        if event.type == pygame.MOUSEBUTTONDOWN and \
-                                two.rect.collidepoint(event.pos):
-                            pass
-                pygame.display.flip()
-                clock.tick(FPS)
-
-    def terminate(self):
-        pygame.quit()
-        sys.exit()
 
     def fon(self):
         fon = pygame.transform.scale(load_image('fon.jpg'), (width, height))
