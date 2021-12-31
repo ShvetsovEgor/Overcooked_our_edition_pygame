@@ -17,9 +17,6 @@ class HelloScene:  # После нажатия любой клавиши дол�
         running = True
         self.fon()
         self.text()
-        one = False
-        two = False
-
         while running:
             FPS = 100
             clock = pygame.time.Clock()
@@ -31,7 +28,15 @@ class HelloScene:  # После нажатия любой клавиши дол�
                     screen.fill("red")
                     Button(screen, width // 2 - 200, height // 2, "1P")
                     Button(screen, width // 2 + 200, height // 2, "2P")
-                buttongroup.update(event)
+                for el in buttongroup:
+                    reaction = el.update(event)
+                    if reaction == "1P":
+                        LevelChoose(1)
+                    elif reaction == "2P":
+                        LevelChoose(2)
+
+
+
             clock.tick(FPS)
             pygame.display.flip()
 
