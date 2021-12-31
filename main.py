@@ -1,7 +1,7 @@
 import pygame
 
 from load_image import load_image
-from button import Button, ButtonGroup
+from button import Button, buttongroup
 
 FPS = 50
 pygame.init()
@@ -17,6 +17,9 @@ class HelloScene:  # После нажатия любой клавиши дол�
         running = True
         self.fon()
         self.text()
+        one = False
+        two = False
+
         while running:
             FPS = 100
             clock = pygame.time.Clock()
@@ -25,16 +28,10 @@ class HelloScene:  # После нажатия любой клавиши дол�
                 if event.type == pygame.QUIT:
                     running = False
                 if event.type == pygame.KEYDOWN:
-                    one = Button(screen, "1P", 100, 100)
-                    two = Button(screen, "2P", 100, 200)
-                if event.type == pygame.MOUSEBUTTONDOWN and \
-                        one.rect.collidepoint(event.pos):
-                    pass
-
-                if event.type == pygame.MOUSEBUTTONDOWN and \
-                        two.rect.collidepoint(event.pos):
-                    pass
-
+                    screen.fill("red")
+                    Button(screen, width // 2 - 200, height // 2, "1P")
+                    Button(screen, width // 2 + 200, height // 2, "2P")
+                buttongroup.update(event)
             clock.tick(FPS)
             pygame.display.flip()
 
