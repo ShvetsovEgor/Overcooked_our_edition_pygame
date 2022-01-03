@@ -48,12 +48,12 @@ class HelloScene:  # После нажатия любой клавиши дол�
         screen.blit(fon, (0, 0))
 
     def text(self):
-        font = pygame.font.Font(None, 100)
-        string_rendered = font.render("Overcooked", 1, pygame.Color('white'))
-        intro_rect = string_rendered.get_rect()
-        intro_rect.y = 70
-        intro_rect.x = 70
-        screen.blit(string_rendered, intro_rect)
+        # font = pygame.font.Font(None, 100)
+        # string_rendered = font.render("Overcooked", 1, pygame.Color('white'))
+        # intro_rect = string_rendered.get_rect()
+        # intro_rect.y = 70
+        # intro_rect.x = 70
+        # screen.blit(string_rendered, intro_rect)
         font = pygame.font.Font(None, 70)
         string_rendered = font.render("Tap any button to start", 1, pygame.Color('white'))
         intro_rect = string_rendered.get_rect()

@@ -60,7 +60,7 @@ class LevelChoose:
         self.choose_the_level()
 
     def choose_the_level(self):
-        FPS = 150
+        FPS = 30
         running = True
         clock = pygame.time.Clock()
         camera = Camera(self.parent.width, self.parent.height)
