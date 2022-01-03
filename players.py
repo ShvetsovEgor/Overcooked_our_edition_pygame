@@ -5,46 +5,46 @@ playersgroup = pygame.sprite.Group()
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__(playersgroup)
-        self.image = load_image("data/red.png")
+    def __init__(self, x, y, allsprites):
+        super().__init__(allsprites, playersgroup)
+        self.image = load_image("red.png")
         self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
 
-    def update(self, event):
-        if event.key == pygame.K_UP:
-            self.rect.y -= 10
-        if event.key == pygame.K_DOWN:
-            self.rect.y += 10
-        if event.key == pygame.K_LEFT:
-            self.rect.x -= 10
-        if event.key == pygame.K_RIGHT:
-            self.rect.x += 10
+    def update(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= 1
+
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += 1
+
+        if keys[pygame.K_UP]:
+            self.rect.y -= 1
+
+        if keys[pygame.K_DOWN]:
+            self.rect.y += 1
 
 
 class SecondPlayer(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__(playersgroup)
-        self.image = load_image("data/green.png")
+    def __init__(self, x, y, allsprites):
+        super().__init__(allsprites, playersgroup)
+        self.image = load_image("green.png")
         self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
 
-    def update(self, event):
-        if event.key == pygame.K_w:
-            self.rect.y -= 10
-        if event.key == pygame.K_s:
-            self.rect.y += 10
-        if event.key == pygame.K_a:
-            self.rect.x -= 10
-        if event.key == pygame.K_d:
-            self.rect.x += 10
+    def update(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_a]:
+            self.rect.x -= 1
 
+        if keys[pygame.K_d]:
+            self.rect.x += 1
 
-class Level(pygame.sprite.Sprite):
-    def __init__(self, x, y, number):
-        super().__init__()
-        surf = pygame.Surface([40, 40])
-        pygame.draw.rect(surf, "green", x, y)
-        font = pygame.font.Font(None, 100)
-        string_rendered = font.render(str(number), 1, pygame.Color('white'))
-        intro_rect = string_rendered.get_rect()
-        surf.blit(string_rendered, intro_rect)
+        if keys[pygame.K_w]:
+            self.rect.y -= 1
 
+        if keys[pygame.K_s]:
+            self.rect.y += 1
