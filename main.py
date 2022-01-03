@@ -2,6 +2,7 @@ import pygame
 
 from load_image import load_image
 from button import Button, buttongroup
+from levelchoose import LevelChoose
 
 FPS = 50
 pygame.init()
@@ -34,8 +35,6 @@ class HelloScene:  # После нажатия любой клавиши дол�
                         LevelChoose(1)
                     elif reaction == "2P":
                         LevelChoose(2)
-
-
 
             clock.tick(FPS)
             pygame.display.flip()
