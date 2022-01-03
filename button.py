@@ -21,4 +21,4 @@ class Button(pygame.sprite.Sprite):
     def update(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and \
                 self.rect.collidepoint(event.pos):
-            print(self.text)
+            return self.text

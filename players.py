@@ -1,13 +1,13 @@
 import pygame.sprite
 from load_image import load_image
 
-players = pygame.sprite.Group()
+playersgroup = pygame.sprite.Group()
 
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
-        super().__init__(players)
-        self.image = load_image("")
+        super().__init__(playersgroup)
+        self.image = load_image("data/red.png")
         self.rect = self.image.get_rect()
 
     def update(self, event):
@@ -23,8 +23,8 @@ class Player(pygame.sprite.Sprite):
 
 class SecondPlayer(pygame.sprite.Sprite):
     def __init__(self):
-        super().__init__(players)
-        self.image = load_image("")
+        super().__init__(playersgroup)
+        self.image = load_image("data/green.png")
         self.rect = self.image.get_rect()
 
     def update(self, event):
