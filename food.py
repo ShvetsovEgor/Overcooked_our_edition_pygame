@@ -4,7 +4,13 @@ from load_image import load_image
 
 foodgroup = pygame.sprite.Group()
 
-visual_food = {"Мясо": ["red.png"]}
+visual_food = {"Название": ["Нормальное состояние", "Нарезанное состояние", "Сваренное состояние", "Жареное состояние"],
+               "Мясо": ["meat.png"],
+               'Томат': ['tomato.png', 'sliced_tomato'],
+               "Огурец": ['cucumber.png', 'sliced_cucumber'],
+               "Картофель": ['tomato.png', 'sliced_tomato.png', 'fried_potato.png'],
+               "Морковь": ['carrot.png', 'sliced_carrot.png'],
+               'Салат': ['salad.png']}
 
 
 # тут будут различные фото для каждой еды [нормальное состояние, нарезанное, сваренное] и т.д.
@@ -40,11 +46,6 @@ class Food(pygame.sprite.Sprite):
 
 
 plategroup = pygame.sprite.Group()
-FPS = 50
-pygame.init()
-infoObject = pygame.display.Info()
-size = width, height = (infoObject.current_w - 100, infoObject.current_h - 100)
-screen = pygame.display.set_mode(size)
 
 
 class Plate(pygame.sprite.Sprite):
@@ -71,16 +72,3 @@ class Plate(pygame.sprite.Sprite):
 
     def __hash__(self):
         return id(self)
-
-
-allsprites = pygame.sprite.Group()
-example = Plate(allsprites)
-example += [Food("Мясо", example, allsprites, fried=True)]
-print(id(Food("Мясо", example, allsprites, fried=True)))
-p2 = Plate(allsprites)
-p2 += [Food("Мясо", example, allsprites, fried=True)]
-print(id(Food("Мясо", example, allsprites, fried=True)))
-print(f"Блюдо соответствует заказу {p2 == example}")
-t = Food("Мясо", example, allsprites, fried=True)
-print(t == Food("Мясо", example, allsprites, fried=True))
-print(Food("Мясо", example, allsprites, fried=True) == Food("Мясо", example, allsprites, fried=True))

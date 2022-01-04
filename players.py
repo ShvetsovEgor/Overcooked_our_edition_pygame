@@ -37,7 +37,6 @@ class Player(pygame.sprite.Sprite):
             self.rect.x += 5
             go = True
 
-
         if keys[pygame.K_UP]:
             self.rect.y -= 5
             go = True

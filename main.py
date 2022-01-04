@@ -15,15 +15,14 @@ class HelloScene:  # После нажатия любой клавиши дол�
     # при нажатии на одну из этих кнопок, загружается поле с уровнями, и в цикле проверяется находятся ли все игроки в
     # пересечении со спрайтом плитки уровня
     def __init__(self, width, height):
+        FPS = 100
         running = True
         self.width = width
         self.height = height
         self.fon()
         self.text()
+        clock = pygame.time.Clock()
         while running:
-            FPS = 100
-            clock = pygame.time.Clock()
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
@@ -34,9 +33,10 @@ class HelloScene:  # После нажатия любой клавиши дол�
                 for el in buttongroup:
                     reaction = el.update(event)
                     if reaction == "1P":
-
+                        running = False
                         LevelChoose(self, screen, 1)
                     elif reaction == "2P":
+                        running = False
                         LevelChoose(self, screen, 2)
 
             clock.tick(FPS)

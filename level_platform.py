@@ -21,5 +21,5 @@ class LevelPlatform(pygame.sprite.Sprite):
 
     def update(self):
         info = pygame.sprite.spritecollide(self, playersgroup, False)
-        if len(info) == len(playersgroup):
-            print(f"СРОЧНО ЗАПУСКАЙ УРОВЕНЬ {self.text}")
+        if len(info) == len(playersgroup) != 0:
+            return self.text
