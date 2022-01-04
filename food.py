@@ -82,15 +82,3 @@ class Plate(pygame.sprite.Sprite):
     def __hash__(self):
         return id(self)
 
-
-allsprites = pygame.sprite.Group()
-example = Plate(allsprites)
-example += [Food("Мясо", example, allsprites, fried=True)]
-print(id(Food("Мясо", example, allsprites, fried=True)))
-p2 = Plate(allsprites)
-p2 += [Food("Мясо", example, allsprites, fried=True)]
-print(id(Food("Мясо", example, allsprites, fried=True)))
-print(f"Блюдо соответствует заказу {p2 == example}")
-t = Food("Мясо", example, allsprites, fried=True)
-print(t == Food("Мясо", example, allsprites, fried=True))
-print(Food("Мясо", example, allsprites, fried=True) == Food("Мясо", example, allsprites, fried=True))
