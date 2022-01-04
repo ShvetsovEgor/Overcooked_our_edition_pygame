@@ -1,7 +1,8 @@
 import pygame
-from levelchoose import LevelChoose
+
 from load_image import load_image
 from button import Button, buttongroup
+from levelchoose import LevelChoose
 
 FPS = 50
 pygame.init()
@@ -13,8 +14,10 @@ screen = pygame.display.set_mode(size)
 class HelloScene:  # После нажатия любой клавиши должен появится красный экран с двумя кнопками 1 игрока или два
     # при нажатии на одну из этих кнопок, загружается поле с уровнями, и в цикле проверяется находятся ли все игроки в
     # пересечении со спрайтом плитки уровня
-    def __init__(self):
+    def __init__(self, width, height):
         running = True
+        self.width = width
+        self.height = height
         self.fon()
         self.text()
         while running:
@@ -26,31 +29,31 @@ class HelloScene:  # После нажатия любой клавиши дол�
                     running = False
                 if event.type == pygame.KEYDOWN:
                     screen.fill("red")
-                    Button(screen, width // 2 - 200, height // 2, "1P")
-                    Button(screen, width // 2 + 200, height // 2, "2P")
+                    Button(screen, width // 2 - 200, height // 2, "1P", "white")
+                    Button(screen, width // 2 + 200, height // 2, "2P", "white")
                 for el in buttongroup:
                     reaction = el.update(event)
                     if reaction == "1P":
-                        LevelChoose(1)
+
+                        LevelChoose(self, screen, 1)
                     elif reaction == "2P":
-                        LevelChoose(2)
-
-
+                        LevelChoose(self, screen, 2)
 
             clock.tick(FPS)
             pygame.display.flip()
+        pygame.quit()
 
     def fon(self):
-        fon = pygame.transform.scale(load_image('fon.jpg'), (width, height))
+        fon = pygame.transform.scale(load_image('fon.png'), (width, height))
         screen.blit(fon, (0, 0))
 
     def text(self):
-        font = pygame.font.Font(None, 100)
-        string_rendered = font.render("Overcooked", 1, pygame.Color('white'))
-        intro_rect = string_rendered.get_rect()
-        intro_rect.y = 70
-        intro_rect.x = 70
-        screen.blit(string_rendered, intro_rect)
+        # font = pygame.font.Font(None, 100)
+        # string_rendered = font.render("Overcooked", 1, pygame.Color('white'))
+        # intro_rect = string_rendered.get_rect()
+        # intro_rect.y = 70
+        # intro_rect.x = 70
+        # screen.blit(string_rendered, intro_rect)
         font = pygame.font.Font(None, 70)
         string_rendered = font.render("Tap any button to start", 1, pygame.Color('white'))
         intro_rect = string_rendered.get_rect()
@@ -62,4 +65,4 @@ class HelloScene:  # После нажатия любой клавиши дол�
 
 if __name__ == '__main__':
     pygame.display.set_caption("Заготовки")
-    scene = HelloScene()
+    scene = HelloScene(width, height)
