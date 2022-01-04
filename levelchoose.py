@@ -1,10 +1,11 @@
 import sqlite3
-
 import pygame
 from load_image import load_image
 from players import playersgroup, Player, SecondPlayer
 from level_platform import LevelPlatform, platformgroup
+from gameplay import GamePlayScene
 allsprites = pygame.sprite.Group()
+
 
 class Camera:
     # зададим начальный сдвиг камеры
@@ -68,19 +69,19 @@ class LevelChoose:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-
-                if event.type == pygame.KEYDOWN:
-                    pass
-
             self.screen.fill((0, 0, 255))
             camera.update(self.obj)
             for el in allsprites:
                 camera.apply(el)
             playersgroup.update()
+            for el in platformgroup:
+                level_number = el.update()
+                if level_number is not None:
+                    print(level_number)
+                    GamePlayScene(self, "level" + level_number + ".csv", self.screen)
             platformgroup.draw(self.screen)
-            platformgroup.update()
             playersgroup.draw(self.screen)
             pygame.display.flip()
             clock.tick(FPS)
-            pygame.event.pump()
+            # pygame.event.pump()
         pygame.quit()
