@@ -62,10 +62,10 @@ class GamePlayScene():
         for x in range(len(self.board)):
             for y in range(len(self.board[x])):
                 if self.board[x][y] == '.':
-                    Floor(y * self.cell_size, x * self.cell_size)
+                    Floor(y * self.cell_size+300, x * self.cell_size+100)
                 elif self.board[x][y] == '#':
                     pass
-                    Wall(y * self.cell_size, x * self.cell_size)
+                    Wall(y * self.cell_size+300, x * self.cell_size+100)
                 elif self.board[x][y] == '@':
                     pass
                 # Декодировка символов в классы
