@@ -64,5 +64,5 @@ class HelloScene:  # После нажатия любой клавиши дол�
 
 
 if __name__ == '__main__':
-    pygame.display.set_caption("Заготовки")
+    pygame.display.set_caption("")
     scene = HelloScene(width, height)

@@ -2,8 +2,6 @@ import pygame
 
 from load_image import load_image
 
-foodgroup = pygame.sprite.Group()
-
 visual_food = {"Название": ["Нормальное состояние", "Нарезанное состояние", "Сваренное состояние", "Жареное состояние"],
                "Мясо": ["meat.png"],
                'Томат': ['tomato.png', 'sliced_tomato'],
@@ -17,7 +15,7 @@ visual_food = {"Название": ["Нормальное состояние", "
 # надо заполнить
 
 class Food(pygame.sprite.Sprite):
-    def __init__(self, title, parent, allsprites, sliced=False, boiled=False, fried=False, shaked=False):
+    def __init__(self, title, parent, allsprites, foodgroup, sliced=False, boiled=False, fried=False, shaked=False):
         super().__init__(allsprites, foodgroup)
 
         self.image = load_image(visual_food[title][0])  # загружаем фото которое соответсвует названию еды
@@ -44,13 +42,18 @@ class Food(pygame.sprite.Sprite):
     def __hash__(self):
         return id(self)
 
+    def update(self):
+        self.rect.x = self.parent.x
+        self.rect.y = self.parent.y
+
 
 plategroup = pygame.sprite.Group()
 
 
 class Plate(pygame.sprite.Sprite):
-    def __init__(self, allsprites):
+    def __init__(self, parent, allsprites, plategroup):
         super().__init__(allsprites, plategroup)
+        self.parent = parent
         self.image = load_image("red.png")
         self.rect = self.image.get_rect()
         self.clear = True
@@ -72,3 +75,7 @@ class Plate(pygame.sprite.Sprite):
 
     def __hash__(self):
         return id(self)
+
+    def update(self):
+        self.rect.x = self.parent.x
+        self.rect.y = self.parent.y

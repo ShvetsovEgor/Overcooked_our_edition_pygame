@@ -29,6 +29,8 @@ class Camera:
 class LevelChoose:
     def __init__(self, parent, screen, kl):
         self.parent = parent
+        self.width = self.parent.width
+        self.height = self.parent.height
         self.screen = screen
         self.kol = kl
 
