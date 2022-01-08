@@ -1,6 +1,6 @@
 import csv
 import pygame.sprite
-from interier import Floor, Wall
+from interier import Floor, Wall, Fridge, Oven, Knife, Sink, Box, Table
 from players import Player, SecondPlayer
 
 
@@ -17,22 +17,21 @@ class GamePlayScene:
         self.filename = "levels/" + filename
 
         self.load_level()
-        running = True
+        self.running = True
         FPS = 60
         clock = pygame.time.Clock()
-        while running:
+        while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_m:
-                    self.playersgroup.take(event, self.foodgroup)
-            self.screen.fill("green")
-
-            self.allsprites.draw(self.screen)
-            self.playersgroup.draw(self.screen)
-            self.playersgroup.update(self.obstacle)
-            clock.tick(FPS)
-            pygame.display.flip()
+                    self.running = False
+                    self.parent.running = False
+            if self.running:
+                self.screen.fill("white")
+                self.allsprites.draw(self.screen)
+                self.playersgroup.draw(self.screen)
+                self.playersgroup.update(self.obstacle)
+                clock.tick(FPS)
+                pygame.display.flip()
         pygame.quit()
 
     def load_level(self):
@@ -52,6 +51,18 @@ class GamePlayScene:
                     Floor(vect_x, vect_y, self.allsprites, self.cell_size)
                 elif self.board[y][x] == '#':
                     Wall(vect_x, vect_y, self.allsprites, self.obstacle,  self.cell_size)
+                elif self.board[y][x] == 'f':
+                    Fridge(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
+                elif self.board[y][x] == 'o':
+                    Oven(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
+                elif self.board[y][x] == 'k':
+                    Knife(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
+                elif self.board[y][x] == 's':
+                    Sink(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
+                elif self.board[y][x] == 'b':
+                    Box(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
+                elif self.board[y][x] == 't':
+                    Table(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
                 # Декодировка символов в классы
 
         self.rows = x
@@ -63,4 +74,4 @@ class GamePlayScene:
             self.second_player = SecondPlayer(x, y, self.playersgroup, self.allsprites)
         elif self.parent.kol == 1:
             x, y = 100, 100  # вопрос
-            self.first_player = Player(x, y, self.playersgroup, self.allsprites, self.cell_size)
+            self.first_player = Player(x, y, self.playersgroup, self.allsprites, self.cell_size - 5)

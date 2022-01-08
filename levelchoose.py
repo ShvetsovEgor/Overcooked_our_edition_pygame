@@ -36,9 +36,6 @@ class LevelChoose:
         self.height = self.parent.height
         self.screen = screen
         self.kol = kl
-
-        fon = pygame.transform.scale(load_image('fon1.png'), (self.parent.width, self.parent.height))
-        self.screen.blit(fon, (0, 0))
         con = sqlite3.connect("level_history.db")
         cur = con.cursor()
         result = cur.execute("Select * from history").fetchall()
@@ -67,26 +64,28 @@ class LevelChoose:
 
     def choose_the_level(self):
         FPS = 30
-        running = True
+        self.running = True
         clock = pygame.time.Clock()
         camera = Camera(self.parent.width, self.parent.height)
-        while running:
+        while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
-            self.screen.fill((0, 0, 255))
-            camera.update(self.obj)
-            for el in self.allsprites:
-                camera.apply(el)
-            self.playersgroup.update(self.obstacle)
+                    self.running = False
+                    self.parent.running = False
+            if self.running:
+                self.screen.fill((0, 0, 255))
+                camera.update(self.obj)
+                for el in self.allsprites:
+                    camera.apply(el)
+                self.playersgroup.update(self.obstacle)
 
-            for el in self.platformgroup:
-                level_number = el.update(self.playersgroup)
-                if level_number is not None:
-                    GamePlayScene(self, "level" + level_number + ".csv", self.screen)
+                for el in self.platformgroup:
+                    level_number = el.update(self.playersgroup)
+                    if level_number is not None:
+                        GamePlayScene(self, "level" + level_number + ".csv", self.screen)
 
-            self.platformgroup.draw(self.screen)
-            self.playersgroup.draw(self.screen)
-            pygame.display.flip()
-            clock.tick(FPS)
+                self.platformgroup.draw(self.screen)
+                self.playersgroup.draw(self.screen)
+                pygame.display.flip()
+                clock.tick(FPS)
         pygame.quit()

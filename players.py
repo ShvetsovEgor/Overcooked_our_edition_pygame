@@ -28,7 +28,7 @@ class Player(pygame.sprite.Sprite):
                 self.frames.append(sheet.subsurface(pygame.Rect(
                     frame_location, self.rect.size)))
 
-    def update(self, obstacle, foodgroup, plategroup, event=None):
+    def update(self, obstacle, foodgroup=None, plategroup=None, event=None):
         if event is not None:
             sprite = pygame.sprite.spritecollideany(self, foodgroup)
             if event.button == pygame.K_m and sprite:
@@ -42,13 +42,14 @@ class Player(pygame.sprite.Sprite):
             if keys[pygame.K_LEFT]:
                 self.rect.x -= 5
                 if pygame.sprite.spritecollide(self, obstacle, False):
-                    self.rect.y += 5
+                    self.rect.x += 5
                 else:
                     go = True
 
             if keys[pygame.K_RIGHT]:
                 self.rect.x += 5
                 if pygame.sprite.spritecollide(self, obstacle, False):
+                    print("Столкновение")
                     self.rect.x -= 5
                 else:
                     go = True
@@ -69,8 +70,6 @@ class Player(pygame.sprite.Sprite):
             if go:
                 self.cur_frame = (self.cur_frame + 1) % len(self.frames)
                 self.image = self.frames[self.cur_frame]
-
-
 
 
 class SecondPlayer(pygame.sprite.Sprite):
@@ -133,4 +132,3 @@ class SecondPlayer(pygame.sprite.Sprite):
         # if go:
         #     self.cur_frame = (self.cur_frame + 1) % len(self.frames)
         #     self.image = self.frames[self.cur_frame]
-

@@ -18,31 +18,29 @@ class HelloScene:  # После нажатия любой клавиши дол�
         self.buttongroup = pygame.sprite.Group()
 
         FPS = 100
-        running = True
+        self.running = True
         self.width = width
         self.height = height
         self.fon()
         self.text()
         clock = pygame.time.Clock()
-        while running:
+        while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    self.running = False
                 if event.type == pygame.KEYDOWN:
                     screen.fill("red")
                     Button(screen, width // 2 - 200, height // 2, self.buttongroup, "1P", "white")
-                    Button(screen, width // 2 + 200, height // 2,self.buttongroup,  "2P", "white")
+                    Button(screen, width // 2 + 200, height // 2, self.buttongroup, "2P", "white")
                 for el in self.buttongroup:
                     reaction = el.update(event)
                     if reaction == "1P":
-                        running = False
                         LevelChoose(self, screen, 1)
                     elif reaction == "2P":
-                        running = False
                         LevelChoose(self, screen, 2)
-
-            clock.tick(FPS)
-            pygame.display.flip()
+            if self.running:
+                clock.tick(FPS)
+                pygame.display.flip()
         pygame.quit()
 
     def fon(self):
