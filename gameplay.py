@@ -28,7 +28,7 @@ class GamePlayScene():
                 if event.type == pygame.QUIT:
                     running = False
             self.screen.fill("green")
-            print(allsprites)
+            # print(allsprites)
             allsprites.draw(self.screen)
             playersgroup.draw(self.screen)
             self.first_player.update()
@@ -38,7 +38,7 @@ class GamePlayScene():
         pygame.quit()
 
     def load_level(self):
-        print(playersgroup, platformgroup)
+        # print(playersgroup, platformgroup)
         with open(self.filename, encoding="utf8") as csvfile:
             reader = csv.reader(csvfile, delimiter=';', quotechar='"')
             self.board = list(reader)
@@ -57,15 +57,19 @@ class GamePlayScene():
         self.rows = x
         self.cols = y
         infoObject = pygame.display.Info()
-        self.cell_size = min(infoObject.current_h, infoObject.current_w) // max(x, y)
+        print(min(infoObject.current_h, infoObject.current_w))
+        print(max(x, y))
+        self.cell_size = int(min(infoObject.current_h, infoObject.current_w) / max(x, y))
+        print(self.cell_size)
         x, y = 0, 0
         for x in range(len(self.board)):
             for y in range(len(self.board[x])):
                 if self.board[x][y] == '.':
-                    Floor(y * self.cell_size+300, x * self.cell_size+100)
+                    Floor(y * self.cell_size + 300, x * self.cell_size + 100, self.cell_size)
                 elif self.board[x][y] == '#':
                     pass
-                    Wall(y * self.cell_size+300, x * self.cell_size+100)
+                    Wall(y * self.cell_size + 300, x * self.cell_size + 100, self.cell_size)
+
                 elif self.board[x][y] == '@':
                     pass
                 # Декодировка символов в классы
@@ -73,9 +77,9 @@ class GamePlayScene():
         if self.parent.kol == 2:
             x, y = 0, 0  # вопрос
             allsprites = pygame.sprite.Group()
-            self.first_player = Player(x, y, allsprites)
+            self.first_player = Player(x, y, allsprites, self.cell_size, self.board)
             self.second_player = SecondPlayer(x, y, allsprites)
         elif self.parent.kol == 1:
             x, y = 100, 100  # вопрос
             allsprites = pygame.sprite.Group()
-            self.first_player = Player(x, y, allsprites)
+            self.first_player = Player(x, y, allsprites, self.cell_size, self.board)
