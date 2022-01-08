@@ -15,6 +15,7 @@ class Camera:
         self.width = width
         self.height = height
 
+
     # сдвинуть объект obj на смещение камеры
     def apply(self, obj):
         obj.rect.x += self.dx
@@ -29,21 +30,24 @@ class Camera:
 class LevelChoose:
     def __init__(self, parent, screen, kl):
         self.parent = parent
+        self.width = self.parent.width
+        self.height = self.parent.height
         self.screen = screen
         self.kol = kl
-
+        self.cell_size = 100
         fon = pygame.transform.scale(load_image('fon1.png'), (self.parent.width, self.parent.height))
         self.screen.blit(fon, (0, 0))
         con = sqlite3.connect("level_history.db")
         cur = con.cursor()
         result = cur.execute("Select * from history").fetchall()
         x = 200
+        #необходимо добавить self.board
         y = self.parent.height // 2
 
         if self.kol == 1:
-            self.obj = Player(50, y - 50, allsprites)
+            self.obj = Player(50, y - 50, allsprites, self.cell_size, self.board)
         else:
-            self.obj = Player(50, y - 50, allsprites)
+            self.obj = Player(50, y - 50, allsprites, self.cell_size, self.board)
             SecondPlayer(50, y + 50, allsprites)
 
         pygame.draw.rect(self.screen, "black", (0, y - 100, x, 200))
