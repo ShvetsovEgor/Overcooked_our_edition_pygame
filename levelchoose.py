@@ -1,10 +1,9 @@
 import sqlite3
 import pygame
 from load_image import load_image
-from players import playersgroup, Player, SecondPlayer
-from level_platform import LevelPlatform, platformgroup
+from players import Player, SecondPlayer
+from level_platform import LevelPlatform
 from gameplay import GamePlayScene
-allsprites = pygame.sprite.Group()
 
 
 class Camera:
@@ -28,6 +27,10 @@ class Camera:
 
 class LevelChoose:
     def __init__(self, parent, screen, kl):
+        self.playersgroup = pygame.sprite.Group()
+        self.allsprites = pygame.sprite.Group()
+        self.platformgroup = pygame.sprite.Group()
+        self.obstacle = pygame.sprite.Group()
         self.parent = parent
         self.width = self.parent.width
         self.height = self.parent.height
@@ -43,10 +46,10 @@ class LevelChoose:
         y = self.parent.height // 2
 
         if self.kol == 1:
-            self.obj = Player(50, y - 50, allsprites)
+            self.obj = Player(50, y - 50, self.playersgroup, self.allsprites)
         else:
-            self.obj = Player(50, y - 50, allsprites)
-            SecondPlayer(50, y + 50, allsprites)
+            self.obj = Player(50, y - 50, self.playersgroup, self.allsprites)
+            SecondPlayer(50, y + 50, self.playersgroup, self.allsprites)
 
         pygame.draw.rect(self.screen, "black", (0, y - 100, x, 200))
 
@@ -56,9 +59,9 @@ class LevelChoose:
         for el in result:
             # рисуем мостик или дорогу
             if el[1]:
-                LevelPlatform(self.screen, x, y, str(el[0]), "green", allsprites)
+                LevelPlatform(self.screen, x, y, self.platformgroup, self.allsprites, str(el[0]), "green")
             else:
-                LevelPlatform(self.screen, x, y, str(el[0]), "red", allsprites)
+                LevelPlatform(self.screen, x, y, self.platformgroup, self.allsprites, str(el[0]), "red")
             x += 300
         self.choose_the_level()
 
@@ -73,17 +76,17 @@ class LevelChoose:
                     running = False
             self.screen.fill((0, 0, 255))
             camera.update(self.obj)
-            for el in allsprites:
+            for el in self.allsprites:
                 camera.apply(el)
-            playersgroup.update()
-            for el in platformgroup:
-                level_number = el.update()
+            self.playersgroup.update(self.obstacle)
+
+            for el in self.platformgroup:
+                level_number = el.update(self.playersgroup)
                 if level_number is not None:
-                    print(level_number)
                     GamePlayScene(self, "level" + level_number + ".csv", self.screen)
-            platformgroup.draw(self.screen)
-            playersgroup.draw(self.screen)
+
+            self.platformgroup.draw(self.screen)
+            self.playersgroup.draw(self.screen)
             pygame.display.flip()
             clock.tick(FPS)
-            # pygame.event.pump()
         pygame.quit()

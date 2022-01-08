@@ -1,12 +1,9 @@
 import pygame
 from load_image import load_image
-from players import playersgroup
-
-platformgroup = pygame.sprite.Group()
 
 
 class LevelPlatform(pygame.sprite.Sprite):
-    def __init__(self, screen, x, y, text, color, allsprites):
+    def __init__(self, screen, x, y, platformgroup, allsprites, text, color):
         super().__init__(allsprites, platformgroup)
         self.text = text
         font = pygame.font.Font(None, 100)
@@ -19,7 +16,7 @@ class LevelPlatform(pygame.sprite.Sprite):
         self.rect.y = y
         screen.blit(self.image, self.rect)
 
-    def update(self):
+    def update(self, playersgroup):
         info = pygame.sprite.spritecollide(self, playersgroup, False)
         if len(info) == len(playersgroup) != 0:
             return self.text

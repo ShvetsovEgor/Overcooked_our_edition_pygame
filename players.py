@@ -1,11 +1,9 @@
 import pygame.sprite
 from load_image import load_image
 
-playersgroup = pygame.sprite.Group()
-obstacle = pygame.sprite.Group()
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, allsprites, cell_size=50):
+    def __init__(self, x, y, playersgroup, allsprites, cell_size=50):
         super().__init__(allsprites, playersgroup)
         self.frames = []
         self.cut_sheet(load_image("walk.png"), 4, 1)
@@ -30,34 +28,53 @@ class Player(pygame.sprite.Sprite):
                 self.frames.append(sheet.subsurface(pygame.Rect(
                     frame_location, self.rect.size)))
 
-    def update(self):
-        go = False
-        x, y = self.rect
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            self.rect.x -= 5
-            go = True
+    def update(self, obstacle, foodgroup, plategroup, event=None):
+        if event is not None:
+            sprite = pygame.sprite.spritecollideany(self, foodgroup)
+            if event.button == pygame.K_m and sprite:
+                self.object = sprite
+                sprite.parent = self
+        else:
+            go = False
+            x = self.rect.x
+            y = self.rect.y
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_LEFT]:
+                self.rect.x -= 5
+                if pygame.sprite.spritecollide(self, obstacle, False):
+                    self.rect.y += 5
+                else:
+                    go = True
 
-        if keys[pygame.K_RIGHT]:
-            self.rect.x += 5
-            go = True
+            if keys[pygame.K_RIGHT]:
+                self.rect.x += 5
+                if pygame.sprite.spritecollide(self, obstacle, False):
+                    self.rect.x -= 5
+                else:
+                    go = True
+            if keys[pygame.K_UP]:
+                self.rect.y -= 5
+                if pygame.sprite.spritecollide(self, obstacle, False):
+                    self.rect.y += 5
+                else:
+                    go = True
 
-        if keys[pygame.K_UP]:
-            self.rect.y -= 5
-            go = True
+            if keys[pygame.K_DOWN]:
+                self.rect.y += 5
+                if pygame.sprite.spritecollide(self, obstacle, False):
+                    self.rect.y -= 5
+                else:
+                    go = True
 
-        if keys[pygame.K_DOWN]:
-            self.rect.y += 5
-            go = True
-        if pygame.sprite.spritecollide(self, self.obstacle)
+            if go:
+                self.cur_frame = (self.cur_frame + 1) % len(self.frames)
+                self.image = self.frames[self.cur_frame]
 
-        # if go:
-        #     self.cur_frame = (self.cur_frame + 1) % len(self.frames)
-        #     self.image = self.frames[self.cur_frame]
+
 
 
 class SecondPlayer(pygame.sprite.Sprite):
-    def __init__(self, x, y, allsprites, cell_size=50):
+    def __init__(self, x, y, playersgroup, allsprites, cell_size=50):
         super().__init__(allsprites, playersgroup)
         # self.frames = []
         # self.cut_sheet(load_image("walk.png"), 4, 1)
@@ -81,16 +98,39 @@ class SecondPlayer(pygame.sprite.Sprite):
                 self.frames.append(sheet.subsurface(pygame.Rect(
                     frame_location, self.rect.size)))
 
-    def update(self):
+    def update(self, obstacle):
+        go = False
+        x = self.rect.x
+        y = self.rect.y
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a]:
             self.rect.x -= 5
+            if pygame.sprite.spritecollide(self, obstacle, False):
+                self.rect.y += 5
+            else:
+                go = True
 
         if keys[pygame.K_d]:
             self.rect.x += 5
-
+            if pygame.sprite.spritecollide(self, obstacle, False):
+                self.rect.x -= 5
+            else:
+                go = True
         if keys[pygame.K_w]:
             self.rect.y -= 5
+            if pygame.sprite.spritecollide(self, obstacle, False):
+                self.rect.y += 5
+            else:
+                go = True
 
         if keys[pygame.K_s]:
             self.rect.y += 5
+            if pygame.sprite.spritecollide(self, obstacle, False):
+                self.rect.y -= 5
+            else:
+                go = True
+
+        # if go:
+        #     self.cur_frame = (self.cur_frame + 1) % len(self.frames)
+        #     self.image = self.frames[self.cur_frame]
+

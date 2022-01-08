@@ -1,7 +1,7 @@
 import pygame
 
 from load_image import load_image
-from button import Button, buttongroup
+from button import Button
 from levelchoose import LevelChoose
 
 FPS = 50
@@ -15,6 +15,8 @@ class HelloScene:  # После нажатия любой клавиши дол�
     # при нажатии на одну из этих кнопок, загружается поле с уровнями, и в цикле проверяется находятся ли все игроки в
     # пересечении со спрайтом плитки уровня
     def __init__(self, width, height):
+        self.buttongroup = pygame.sprite.Group()
+
         FPS = 100
         running = True
         self.width = width
@@ -28,9 +30,9 @@ class HelloScene:  # После нажатия любой клавиши дол�
                     running = False
                 if event.type == pygame.KEYDOWN:
                     screen.fill("red")
-                    Button(screen, width // 2 - 200, height // 2, "1P", "white")
-                    Button(screen, width // 2 + 200, height // 2, "2P", "white")
-                for el in buttongroup:
+                    Button(screen, width // 2 - 200, height // 2, self.buttongroup, "1P", "white")
+                    Button(screen, width // 2 + 200, height // 2,self.buttongroup,  "2P", "white")
+                for el in self.buttongroup:
                     reaction = el.update(event)
                     if reaction == "1P":
                         running = False

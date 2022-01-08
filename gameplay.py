@@ -1,45 +1,36 @@
 import csv
-from food import Food
-from interier import Floor, Wall
 import pygame.sprite
-
+from interier import Floor, Wall
 from players import Player, SecondPlayer
 
 
 class GamePlayScene:
     def __init__(self, parent, filename, screen):
-        self.allsprites = pygame.sprite.Group()
+        self.obstacle = pygame.sprite.Group()
         self.playersgroup = pygame.sprite.Group()
-
+        self.allsprites = pygame.sprite.Group()
         self.foodgroup = pygame.sprite.Group()
         self.parent = parent
         self.width = self.parent.width
         self.height = self.parent.height
         self.screen = screen
-        self.cell_size = 100
         self.filename = "levels/" + filename
-        # for el in allsprites:
-        #     el.kill()
-        # for el in platformgroup:
-        #     el.kill()
-        # for el in playersgroup:
-        #     el.kill()
+
         self.load_level()
         running = True
         FPS = 60
-
         clock = pygame.time.Clock()
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_m:
+                    self.playersgroup.take(event, self.foodgroup)
             self.screen.fill("green")
 
             self.allsprites.draw(self.screen)
-            self.allsprites.update()
             self.playersgroup.draw(self.screen)
-            # self.first_player.update()
-            self.playersgroup.update()
+            self.playersgroup.update(self.obstacle)
             clock.tick(FPS)
             pygame.display.flip()
         pygame.quit()
@@ -58,12 +49,9 @@ class GamePlayScene:
             for x in range(len(self.board[y])):
                 vect_x, vect_y = self.border_x + x * self.cell_size, self.border_y + y * self.cell_size
                 if self.board[y][x] == '.':
-                    Floor(vect_x, vect_y, self.cell_size)
+                    Floor(vect_x, vect_y, self.allsprites, self.cell_size)
                 elif self.board[y][x] == '#':
-                    Wall(self.allsprites, self.obstacle, vect_x, vect_y, self.cell_size)
-                elif self.board[y][x] == '@':
-                    s = Floor(vect_x, vect_y, self.cell_size)
-                    meat = Food("Мясо", s, self.allsprites, self.foodgroup)
+                    Wall(vect_x, vect_y, self.allsprites, self.obstacle,  self.cell_size)
                 # Декодировка символов в классы
 
         self.rows = x
@@ -71,10 +59,8 @@ class GamePlayScene:
 
         if self.parent.kol == 2:
             x, y = 0, 0  # вопрос
-            allsprites = pygame.sprite.Group()
-            self.first_player = Player(x, y, allsprites, self.cell_size)
-            self.second_player = SecondPlayer(x, y, allsprites, self.cell_size)
+            self.first_player = Player(x, y, self.playersgroup, self.allsprites, self.cell_size)
+            self.second_player = SecondPlayer(x, y, self.playersgroup, self.allsprites)
         elif self.parent.kol == 1:
             x, y = 100, 100  # вопрос
-            allsprites = pygame.sprite.Group()
-            self.first_player = Player(x, y, allsprites, self.cell_size)
+            self.first_player = Player(x, y, self.playersgroup, self.allsprites, self.cell_size)
