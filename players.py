@@ -87,7 +87,7 @@ class Player(pygame.sprite.Sprite):
 
                     if s == 'Box' and keys[pygame.K_SPACE]:
                         image = load_image("table.png")
-                        image = pygame.transform.scale(image, (50, 50))
+                        image = pygame.transform.scale(image, (120, 120))
                         pygame.sprite.spritecollideany(self, obstacle, None).image = image
 
                     self.rect.y -= 5
