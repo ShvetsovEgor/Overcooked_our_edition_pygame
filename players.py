@@ -42,10 +42,15 @@ class Player(pygame.sprite.Sprite):
             if keys[pygame.K_LEFT]:
                 self.rect.x -= 5
                 if pygame.sprite.spritecollide(self, obstacle, False):
+
                     s = str(pygame.sprite.spritecollide(self, obstacle, False)).split()[0][2:]
                     if s == 'Box' and keys[pygame.K_SPACE]:
-                        image = load_image("table.png")
-                        image = pygame.transform.scale(image, (120, 120))
+                        image = load_image("box_opened.png")
+                        cell_size = 95
+                        width, height = image.get_rect().size
+                        k = width / cell_size
+                        image = pygame.transform.scale(image, (cell_size, int(height / k)))
+
                         pygame.sprite.spritecollideany(self, obstacle, None).image = image
 
                     self.rect.x += 5
@@ -55,24 +60,32 @@ class Player(pygame.sprite.Sprite):
             if keys[pygame.K_RIGHT]:
                 self.rect.x += 5
                 if pygame.sprite.spritecollide(self, obstacle, False):
-                    #self.pygame.sprite.spritecollide(self, obstacle, False).image = 'table.png'
+                    # self.pygame.sprite.spritecollide(self, obstacle, False).image = 'table.png'
                     s = str(pygame.sprite.spritecollide(self, obstacle, False)).split()[0][2:]
                     if s == 'Box' and keys[pygame.K_SPACE]:
-                        image = load_image("table.png")
-                        image = pygame.transform.scale(image, (120, 120))
+                        image = load_image("box_opened.png")
+                        cell_size = 95
+                        width, height = image.get_rect().size
+                        k = width / cell_size
+                        image = pygame.transform.scale(image, (cell_size, int(height / k)))
+
                         pygame.sprite.spritecollideany(self, obstacle, None).image = image
 
                     self.rect.x -= 5
                 else:
-                        go = True
+                    go = True
             if keys[pygame.K_UP]:
                 self.rect.y -= 5
                 if pygame.sprite.spritecollide(self, obstacle, False):
                     s = str(pygame.sprite.spritecollide(self, obstacle, False)).split()[0][2:]
 
                     if s == 'Box' and keys[pygame.K_SPACE]:
-                        image = load_image("table.png")
-                        image = pygame.transform.scale(image, (120, 120))
+                        image = load_image("box_opened.png")
+                        cell_size = 95
+                        width, height = image.get_rect().size
+                        k = width / cell_size
+                        image = pygame.transform.scale(image, (cell_size, int(height / k)))
+
                         pygame.sprite.spritecollideany(self, obstacle, None).image = image
 
                     self.rect.y += 5
@@ -86,8 +99,12 @@ class Player(pygame.sprite.Sprite):
                     print(s)
 
                     if s == 'Box' and keys[pygame.K_SPACE]:
-                        image = load_image("table.png")
-                        image = pygame.transform.scale(image, (120, 120))
+                        image = load_image("box_opened.png")
+                        cell_size = 95
+                        width, height = image.get_rect().size
+                        k = width / cell_size
+                        image = pygame.transform.scale(image, (cell_size, int(height / k)))
+
                         pygame.sprite.spritecollideany(self, obstacle, None).image = image
 
                     self.rect.y -= 5
