@@ -1,7 +1,7 @@
 import pygame
 
 from load_image import load_image
-from button import Button, buttongroup
+from button import Button
 from levelchoose import LevelChoose
 
 FPS = 50
@@ -15,32 +15,32 @@ class HelloScene:  # После нажатия любой клавиши дол�
     # при нажатии на одну из этих кнопок, загружается поле с уровнями, и в цикле проверяется находятся ли все игроки в
     # пересечении со спрайтом плитки уровня
     def __init__(self, width, height):
-        running = True
+        self.buttongroup = pygame.sprite.Group()
+
+        FPS = 100
+        self.running = True
         self.width = width
         self.height = height
         self.fon()
         self.text()
-        while running:
-            FPS = 100
-            clock = pygame.time.Clock()
-
+        clock = pygame.time.Clock()
+        while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    self.running = False
                 if event.type == pygame.KEYDOWN:
                     screen.fill("red")
-                    Button(screen, width // 2 - 200, height // 2, "1P", "white")
-                    Button(screen, width // 2 + 200, height // 2, "2P", "white")
-                for el in buttongroup:
+                    Button(screen, width // 2 - 200, height // 2, self.buttongroup, "1P", "white")
+                    Button(screen, width // 2 + 200, height // 2, self.buttongroup, "2P", "white")
+                for el in self.buttongroup:
                     reaction = el.update(event)
                     if reaction == "1P":
-
                         LevelChoose(self, screen, 1)
                     elif reaction == "2P":
                         LevelChoose(self, screen, 2)
-
-            clock.tick(FPS)
-            pygame.display.flip()
+            if self.running:
+                clock.tick(FPS)
+                pygame.display.flip()
         pygame.quit()
 
     def fon(self):
@@ -64,5 +64,5 @@ class HelloScene:  # После нажатия любой клавиши дол�
 
 
 if __name__ == '__main__':
-    pygame.display.set_caption("Заготовки")
+    pygame.display.set_caption("")
     scene = HelloScene(width, height)
