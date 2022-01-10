@@ -2,26 +2,20 @@ import pygame
 
 from load_image import load_image
 
-foodgroup = pygame.sprite.Group()
-
-visual_food = {"Мясо": ["meat.png"],
-               'Томат': ['tomato.png'],
-               'Нарезанный томат': ['sliced_tomato'],
-               "Огурец": ['cucumber.png'],
-               "Нарезанный огурец": ['sliced_cucumber'],
-               "Картофель": ['tomato.png'],
-               "Нарезанный картофель": ['sliced_tomato.png'],
-               "Морковь": ['carrot.png'],
-               "Нарезанная морковь": ['sliced_carrot.png'],
-               'Салат': ['salad.png'],
-               'Жареный картофель': ['fried_potato.png']}
+visual_food = {"Название": ["Нормальное состояние", "Нарезанное состояние", "Сваренное состояние", "Жареное состояние"],
+               "Мясо": ["meat.png"],
+               'Томат': ['tomato.png', 'sliced_tomato'],
+               "Огурец": ['cucumber.png', 'sliced_cucumber'],
+               "Картофель": ['tomato.png', 'sliced_tomato.png', 'fried_potato.png'],
+               "Морковь": ['carrot.png', 'sliced_carrot.png'],
+               'Салат': ['salad.png']}
 
 
 # тут будут различные фото для каждой еды [нормальное состояние, нарезанное, сваренное] и т.д.
 # надо заполнить
 
 class Food(pygame.sprite.Sprite):
-    def __init__(self, title, parent, allsprites, sliced=False, boiled=False, fried=False, shaked=False):
+    def __init__(self, title, parent, allsprites, foodgroup, sliced=False, boiled=False, fried=False, shaked=False):
         super().__init__(allsprites, foodgroup)
 
         self.image = load_image(visual_food[title][0])  # загружаем фото которое соответсвует названию еды
@@ -48,26 +42,24 @@ class Food(pygame.sprite.Sprite):
     def __hash__(self):
         return id(self)
 
+    def update(self):
+        self.rect.x = self.parent.x
+        self.rect.y = self.parent.y
+
 
 plategroup = pygame.sprite.Group()
-FPS = 50
-pygame.init()
-infoObject = pygame.display.Info()
-size = width, height = (infoObject.current_w - 100, infoObject.current_h - 100)
-screen = pygame.display.set_mode(size)
 
 
 class Plate(pygame.sprite.Sprite):
-    def __init__(self, allsprites):
+    def __init__(self, parent, allsprites, plategroup):
         super().__init__(allsprites, plategroup)
+        self.parent = parent
         self.image = load_image("red.png")
         self.rect = self.image.get_rect()
         self.clear = True
         self.ingridients = []
 
     def __eq__(self, other):
-        # if set(self.ingridients) == set(other.ingridients):
-        #     return True                  требовалось хеширование
         for el in other.ingridients:
             if el not in self.ingridients:
                 return False
@@ -82,3 +74,19 @@ class Plate(pygame.sprite.Sprite):
     def __hash__(self):
         return id(self)
 
+    def update(self):
+        self.rect.x = self.parent.x
+        self.rect.y = self.parent.y
+
+
+class Ingridients(pygame.sprite.Sprite):
+    def __init__(self, x, y, title, allsprites, cell_size=50):
+        super().__init__(allsprites)
+
+        self.title = title
+
+        self.image = load_image(visual_food[self.title][0])
+        self.image = pygame.transform.scale(self.image, (cell_size * 0.4, cell_size * 0.4))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
