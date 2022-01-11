@@ -60,9 +60,10 @@ class GamePlayScene:
                     Wall(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
                 elif self.board[y][x] == 'f':
                     a = self.aims[-1][0].split()[1:]
-                    Fridge(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
                     for elem in a:
                         Ingridients(vect_x, vect_y, elem, self.allsprites)
+                    Fridge(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
+
 
                 elif self.board[y][x] == 'o':
                     Oven(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
@@ -71,6 +72,9 @@ class GamePlayScene:
                 elif self.board[y][x] == 's':
                     Sink(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
                 elif self.board[y][x] == 'b':
+                    a = self.aims[-2][0].split()[1:]
+                    for elem in a:
+                        Ingridients(vect_x, vect_y, elem, self.allsprites)
                     Box(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
                 elif self.board[y][x] == 't':
                     Table(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
