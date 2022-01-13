@@ -2,6 +2,7 @@ import pygame.sprite
 from load_image import load_image
 import csv
 from food import Ingridients
+from interier import Box, Fridge
 
 allsprites = pygame.sprite.Group()
 
@@ -33,200 +34,117 @@ class Player(pygame.sprite.Sprite):
                     frame_location, self.rect.size)))
 
     def update(self, obstacle, foodgroup=None, plategroup=None, event=None):
+        direction = 0
         if event is not None:
             sprite = pygame.sprite.spritecollideany(self, foodgroup)
             if event.button == pygame.K_m and sprite:
                 self.object = sprite
                 sprite.parent = self
         else:
+            s = ''
             go = False
             x = self.rect.x
             y = self.rect.y
             keys = pygame.key.get_pressed()
             if keys[pygame.K_LEFT]:
+                direction = 'left'
                 self.rect.x -= 5
                 if pygame.sprite.spritecollide(self, obstacle, False):
                     s = str(pygame.sprite.spritecollide(self, obstacle, False)).split()[0][2:]
-                    if s == 'Box' or s == "Fridge":
-                        filename = 'level1.csv'
-                        self.filename = "levels/" + filename
-                        with open(self.filename, encoding="utf8") as csvfile:
-                            reader = csv.reader(csvfile, delimiter=';', quotechar='"')
-                            self.board = list(reader)
-                        num = self.board.index(['---'])
-                        self.aims = self.board[num + 1:]
-                        print(self.aims)
-                        self.board = self.board[:num]
-
                     if s == 'Box' and keys[pygame.K_SPACE]:
-                        a = self.aims[-2][0].split()[1:]
-
-                        image = load_image("box_opened.png")
-                        cell_size = 95
-                        width, height = image.get_rect().size
-                        k = width / cell_size
-                        image = pygame.transform.scale(image, (cell_size, int(height / k)))
-                        pygame.sprite.spritecollideany(self, obstacle, None).image = image
-                        for elem in a:
-                            print(a)
-                            Ingridients(self.rect.x, self.rect.y, elem, allsprites)
+                        Box.update(pygame.sprite.spritecollideany(self, obstacle, None))
 
                     if s == 'Fridge' and keys[pygame.K_SPACE]:
-                        a = self.aims[-1][0].split()[1:]
-
-                        for elem in a:
-                            Ingridients(self.rect.x, self.rect.y, elem, allsprites)
-                        cell_size = 95
-                        image = load_image('fridge_opened.png')
-                        width, height = image.get_rect().size
-
-                        k = width / cell_size
-                        image = pygame.transform.scale(image, (cell_size, int(height / k)))
-                        pygame.sprite.spritecollideany(self, obstacle, None).image = image
-
+                        Fridge.update(pygame.sprite.spritecollideany(self, obstacle, None))
                     self.rect.x += 5
                 else:
+
                     go = True
 
             if keys[pygame.K_RIGHT]:
+                direction = 'right'
+
                 self.rect.x += 5
                 if pygame.sprite.spritecollide(self, obstacle, False):
                     s = str(pygame.sprite.spritecollide(self, obstacle, False)).split()[0][2:]
-                    if s == 'Box' or s == "Fridge":
-                        filename = 'level1.csv'
-                        self.filename = "levels/" + filename
-                        with open(self.filename, encoding="utf8") as csvfile:
-                            reader = csv.reader(csvfile, delimiter=';', quotechar='"')
-                            self.board = list(reader)
-                        num = self.board.index(['---'])
-                        self.aims = self.board[num + 1:]
-                        print(self.aims)
-                        self.board = self.board[:num]
-
                     if s == 'Box' and keys[pygame.K_SPACE]:
-                        a = self.aims[-2][0].split()[1:]
-
-                        image = load_image("box_opened.png")
-                        cell_size = 95
-                        width, height = image.get_rect().size
-                        k = width / cell_size
-                        image = pygame.transform.scale(image, (cell_size, int(height / k)))
-                        pygame.sprite.spritecollideany(self, obstacle, None).image = image
-                        for elem in a:
-                            print(a)
-                            Ingridients(self.rect.x, self.rect.y, elem, allsprites)
+                        Box.update(pygame.sprite.spritecollideany(self, obstacle, None))
 
                     if s == 'Fridge' and keys[pygame.K_SPACE]:
-                        a = self.aims[-1][0].split()[1:]
-
-                        cell_size = 95
-                        image = load_image('fridge_opened.png')
-                        width, height = image.get_rect().size
-
-                        k = width / cell_size
-                        image = pygame.transform.scale(image, (cell_size, int(height / k)))
-                        pygame.sprite.spritecollideany(self, obstacle, None).image = image
-                        for elem in a:
-                            Ingridients(self.rect.x, self.rect.y, elem, allsprites)
-
+                        Fridge.update(pygame.sprite.spritecollideany(self, obstacle, None))
                     self.rect.x -= 5
                 else:
                     go = True
             if keys[pygame.K_UP]:
+                direction = 'up'
                 self.rect.y -= 5
                 if pygame.sprite.spritecollide(self, obstacle, False):
                     s = str(pygame.sprite.spritecollide(self, obstacle, False)).split()[0][2:]
-                    if s == 'Box' or s == "Fridge":
-                        filename = 'level1.csv'
-                        self.filename = "levels/" + filename
-                        with open(self.filename, encoding="utf8") as csvfile:
-                            reader = csv.reader(csvfile, delimiter=';', quotechar='"')
-                            self.board = list(reader)
-                        num = self.board.index(['---'])
-                        self.aims = self.board[num + 1:]
-                        print(self.aims)
-                        self.board = self.board[:num]
-
                     if s == 'Box' and keys[pygame.K_SPACE]:
-                        a = self.aims[-2][0].split()[1:]
-                        for elem in a:
-                            print(a)
-                            Ingridients(self.rect.x, self.rect.y, elem, allsprites)
-                        image = load_image("box_opened.png")
-                        cell_size = 95
-                        width, height = image.get_rect().size
-                        k = width / cell_size
-                        image = pygame.transform.scale(image, (cell_size, int(height / k)))
-                        pygame.sprite.spritecollideany(self, obstacle, None).image = image
-                        for elem in a:
-                            Ingridients(self.rect.x, self.rect.y, elem, allsprites)
+                        Box.update(pygame.sprite.spritecollideany(self, obstacle, None))
 
                     if s == 'Fridge' and keys[pygame.K_SPACE]:
-                        a = self.aims[-1][0].split()[1:]
-                        for elem in a:
-                            Ingridients(self.rect.x, self.rect.y, elem, allsprites)
-                        cell_size = 95
-                        image = load_image('fridge_opened.png')
-                        width, height = image.get_rect().size
-
-                        k = width / cell_size
-                        image = pygame.transform.scale(image, (cell_size, int(height / k)))
-                        pygame.sprite.spritecollideany(self, obstacle, None).image = image
-
+                        Fridge.update(pygame.sprite.spritecollideany(self, obstacle, None))
                     self.rect.y += 5
                 else:
+
                     go = True
 
             if keys[pygame.K_DOWN]:
+                direction = 'down'
                 self.rect.y += 5
                 if pygame.sprite.spritecollide(self, obstacle, False):
                     s = str(pygame.sprite.spritecollide(self, obstacle, False)).split()[0][2:]
-                    if s == 'Box' or s == "Fridge":
-                        filename = 'level1.csv'
-                        self.filename = "levels/" + filename
-                        with open(self.filename, encoding="utf8") as csvfile:
-                            reader = csv.reader(csvfile, delimiter=';', quotechar='"')
-                            self.board = list(reader)
-                        num = self.board.index(['---'])
-                        self.aims = self.board[num + 1:]
-                        print(self.aims)
-                        self.board = self.board[:num]
-
                     if s == 'Box' and keys[pygame.K_SPACE]:
-                        a = self.aims[-2][0].split()[1:]
-                        for elem in a:
-                            print(a)
-                            Ingridients(self.rect.x, self.rect.y, elem, allsprites)
-
-                        image = load_image("box_opened.png")
-                        cell_size = 95
-                        width, height = image.get_rect().size
-                        k = width / cell_size
-                        image = pygame.transform.scale(image, (cell_size, int(height / k)))
-                        pygame.sprite.spritecollideany(self, obstacle, None).image = image
-                        for elem in a:
-                            Ingridients(self.rect.x, self.rect.y, elem, allsprites)
+                        Box.update(pygame.sprite.spritecollideany(self, obstacle, None))
 
                     if s == 'Fridge' and keys[pygame.K_SPACE]:
-                        a = self.aims[-1][0].split()[1:]
-                        for elem in a:
-                            Ingridients(self.rect.x, self.rect.y, elem, allsprites)
-                        cell_size = 95
-                        image = load_image('fridge_opened.png')
-                        width, height = image.get_rect().size
-
-                        k = width / cell_size
-                        image = pygame.transform.scale(image, (cell_size, int(height / k)))
-                        pygame.sprite.spritecollideany(self, obstacle, None).image = image
+                        Fridge.update(pygame.sprite.spritecollideany(self, obstacle, None))
                     self.rect.y -= 5
                 else:
+
                     go = True
 
             if go:
                 self.cur_frame = (self.cur_frame + 1) % len(self.frames)
                 self.image = self.frames[self.cur_frame]
 
+            '''
+            else:
+                if direction == 'up':
 
+                    self.rect.y -= 5
+                    if pygame.sprite.spritecollide(self, obstacle, False):
+
+                        s = str(pygame.sprite.spritecollide(self, obstacle, False)).split()[0][2:]
+                        print(s)
+                        if s == 'Box' and keys[pygame.K_SPACE]:
+                            Box.update(pygame.sprite.spritecollideany(self, obstacle, None))
+
+                        if s == 'Fridge' and keys[pygame.K_SPACE]:
+                            Fridge.update(pygame.sprite.spritecollideany(self, obstacle, None))
+
+                        self.rect.y += 5
+           
+            self.direct(direction, obstacle)
+
+    def direct(self, direction, obstacle):
+        if direction == 'up':
+
+            self.rect.y -= 5
+            if pygame.sprite.spritecollide(self, obstacle, False):
+
+                s = str(pygame.sprite.spritecollide(self, obstacle, False)).split()[0][2:]
+                print(s)
+                if s == 'Box' and keys[pygame.K_SPACE]:
+                    Box.update(pygame.sprite.spritecollideany(self, obstacle, None))
+
+                if s == 'Fridge' and keys[pygame.K_SPACE]:
+                    Fridge.update(pygame.sprite.spritecollideany(self, obstacle, None))
+
+                self.rect.y += 5
+
+     '''
 class SecondPlayer(pygame.sprite.Sprite):
     def __init__(self, x, y, playersgroup, allsprites, cell_size=50):
         super().__init__(allsprites, playersgroup)
