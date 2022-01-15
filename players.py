@@ -15,7 +15,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-
+        self.direction = None
         # предмет в руках
         self.object = None
 
@@ -27,6 +27,17 @@ class Player(pygame.sprite.Sprite):
                 frame_location = (self.rect.w * i, self.rect.h * j)
                 self.frames.append(sheet.subsurface(pygame.Rect(
                     frame_location, self.rect.size)))
+
+    def find(self, foodgroup):
+        print(self.direction)
+        if self.direction == "U":
+            self.rect.y -= 20
+            sprite = pygame.sprite.spritecollide(self, foodgroup, False)
+            if sprite is not None:
+                sprite = sprite[0]
+                sprite.parent = self
+            print("Текущий объект", sprite.title)
+            self.rect.y += 20
 
     def update(self, obstacle, foodgroup=None, plategroup=None, event=None):
         if event is not None:
@@ -44,6 +55,7 @@ class Player(pygame.sprite.Sprite):
                 if pygame.sprite.spritecollide(self, obstacle, False):
                     self.rect.x += 5
                 else:
+                    self.direction = "L"
                     go = True
 
             if keys[pygame.K_RIGHT]:
@@ -52,12 +64,14 @@ class Player(pygame.sprite.Sprite):
                     print("Столкновение")
                     self.rect.x -= 5
                 else:
+                    self.direction = "R"
                     go = True
             if keys[pygame.K_UP]:
                 self.rect.y -= 5
                 if pygame.sprite.spritecollide(self, obstacle, False):
                     self.rect.y += 5
                 else:
+                    self.direction = "U"
                     go = True
 
             if keys[pygame.K_DOWN]:
@@ -65,9 +79,11 @@ class Player(pygame.sprite.Sprite):
                 if pygame.sprite.spritecollide(self, obstacle, False):
                     self.rect.y -= 5
                 else:
+                    self.direction = "D"
                     go = True
 
             if go:
+                print(self.direction)
                 self.cur_frame = (self.cur_frame + 1) % len(self.frames)
                 self.image = self.frames[self.cur_frame]
 

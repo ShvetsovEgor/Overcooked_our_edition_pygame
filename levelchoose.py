@@ -82,7 +82,7 @@ class LevelChoose:
                 for el in self.platformgroup:
                     level_number = el.update(self.playersgroup)
                     if level_number is not None:
-                        GamePlayScene(self, "level" + level_number + ".csv", self.screen)
+                        GamePlayScene(self, level_number, self.screen)
 
                 self.platformgroup.draw(self.screen)
                 self.playersgroup.draw(self.screen)

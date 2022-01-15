@@ -43,8 +43,8 @@ class Food(pygame.sprite.Sprite):
         return id(self)
 
     def update(self):
-        self.rect.x = self.parent.x
-        self.rect.y = self.parent.y
+        self.rect.x = self.parent.rect.x
+        self.rect.y = self.parent.rect.y
 
 
 plategroup = pygame.sprite.Group()
