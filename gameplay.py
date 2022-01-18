@@ -1,9 +1,14 @@
 import csv
 import sqlite3
 import pygame.sprite
+from random import choice
 from interier import Floor, Wall, Fridge, Oven, Knife, Sink, Box, Table
 from players import Player, SecondPlayer
 from dishes import *
+import datetime
+
+infoObject = pygame.display.Info()
+size = width, height = (infoObject.current_w - 50, infoObject.current_h - 50)
 
 
 class GamePlayScene:
@@ -18,6 +23,9 @@ class GamePlayScene:
         self.screen = screen
         self.filename = f"levels/level{filenumber}.csv"
         self.filenumber = filenumber
+        self.f1 = 0
+        self.f2 = 0
+        self.first_time = datetime.datetime.now()
 
         self.load_level()
         self.running = True
@@ -30,12 +38,26 @@ class GamePlayScene:
                     self.parent.running = False
 
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_m:  # горячие клавиши
-                        self.first_player.find(self.foodgroup)
+                    if event.key == pygame.K_SPACE:
+                        print(self.f1)  # горячие клавиши
+                        if not self.f1:
+
+                            self.f1 = 1
+                            self.sprite = self.first_player.find(self.foodgroup)[1]
+
+                        elif self.f1 == 1:
+                            self.first_player.put(self.obstacle, self.sprite)
+                            self.f1 = 0
+                            self.sprite = None
+
                     elif event.key == pygame.K_e:
                         self.second_player.find(self.foodgroup)
             if self.running:
+                font = pygame.font.Font(None, 50)
+                text = font.render(str(datetime.datetime.now() - self.first_time), True, (100, 255, 100))
+
                 self.screen.fill("white")
+
                 self.allsprites.draw(self.screen)
                 self.obstacle.draw(self.screen)
                 self.foodgroup.draw(self.screen)
@@ -43,6 +65,7 @@ class GamePlayScene:
                 self.playersgroup.draw(self.screen)
                 self.playersgroup.update(self.obstacle)
                 self.foodgroup.update()
+                screen.blit(text, (width - 300, 50))
                 clock.tick(FPS)
                 pygame.display.flip()
         pygame.quit()
@@ -64,22 +87,22 @@ class GamePlayScene:
         self.ingridients = {}
         for el in res[4].split(";"):
             el = el.split(": ")
-            print(el)
+
             if el[0] in self.ingridients:
                 self.ingridients[el[0]] += el[1].split(", ")
             else:
                 self.ingridients[el[0]] = el[1].split(", ")
-        print(self.title)
-        print(self.dishes)
-        print(self.ingridients)
+
         self.generate_level()
 
     def generate_level(self):
+        floors = []
         for y in range(len(self.board)):
             for x in range(len(self.board[y])):
                 vect_x, vect_y = self.border_x + x * self.cell_size, self.border_y + y * self.cell_size
                 if self.board[y][x] == '.':
                     Floor(vect_x, vect_y, self.allsprites, self.cell_size)
+                    floors += [(vect_x, vect_y)]
                 elif self.board[y][x] == '#':
                     Wall(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
                 elif self.board[y][x] == 'f':
@@ -105,9 +128,9 @@ class GamePlayScene:
         self.cols = y
 
         if self.parent.kol == 2:
-            x, y = 0, 0  # вопрос
+            x, y = choice(floors)  # вопрос
             self.first_player = Player(x, y, self.playersgroup, self.allsprites, self.cell_size)
             self.second_player = SecondPlayer(x, y, self.playersgroup, self.allsprites)
         elif self.parent.kol == 1:
-            x, y = 100, 100  # вопрос
+            x, y = choice(floors)   # вопрос
             self.first_player = Player(x, y, self.playersgroup, self.allsprites, self.cell_size - 5)
