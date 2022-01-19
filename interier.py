@@ -1,6 +1,6 @@
 import pygame
 from load_image import load_image
-
+allsprites = pygame.sprite.Group
 
 class Floor(pygame.sprite.Sprite):
     def __init__(self, x, y, allsprites, cell_size=50):
@@ -91,3 +91,7 @@ class Table(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y - int(height / k) + cell_size
+
+
+    def checkout(self):
+       pass
