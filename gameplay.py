@@ -1,6 +1,7 @@
 import csv
 import sqlite3
 import pygame.sprite
+from random import choice
 from interier import Floor, Wall, Fridge, Oven, Knife, Sink, Box, Table
 from players import Player, SecondPlayer
 from dishes import *
@@ -95,11 +96,13 @@ class GamePlayScene:
         self.generate_level()
 
     def generate_level(self):
+        floors = []
         for y in range(len(self.board)):
             for x in range(len(self.board[y])):
                 vect_x, vect_y = self.border_x + x * self.cell_size, self.border_y + y * self.cell_size
                 if self.board[y][x] == '.':
                     Floor(vect_x, vect_y, self.allsprites, self.cell_size)
+                    floors += [(vect_x, vect_y)]
                 elif self.board[y][x] == '#':
                     Wall(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
                 elif self.board[y][x] == 'f':
@@ -125,9 +128,9 @@ class GamePlayScene:
         self.cols = y
 
         if self.parent.kol == 2:
-            x, y = 0, 0  # вопрос
+            x, y = choice(floors)  # вопрос
             self.first_player = Player(x, y, self.playersgroup, self.allsprites, self.cell_size)
             self.second_player = SecondPlayer(x, y, self.playersgroup, self.allsprites)
         elif self.parent.kol == 1:
-            x, y = 100, 100  # вопрос
+            x, y = choice(floors)   # вопрос
             self.first_player = Player(x, y, self.playersgroup, self.allsprites, self.cell_size - 5)

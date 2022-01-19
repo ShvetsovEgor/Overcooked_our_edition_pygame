@@ -7,7 +7,7 @@ from levelchoose import LevelChoose
 FPS = 50
 pygame.init()
 infoObject = pygame.display.Info()
-size = width, height = (infoObject.current_w - 100, infoObject.current_h - 100)
+size = width, height = (infoObject.current_w - 50, infoObject.current_h - 50)
 screen = pygame.display.set_mode(size)
 
 

@@ -43,8 +43,8 @@ class Food(pygame.sprite.Sprite):
         return id(self)
 
     def update(self):
-        self.rect.x = self.parent.x
-        self.rect.y = self.parent.y
+        self.rect.x = self.parent.rect.x
+        self.rect.y = self.parent.rect.y
 
 
 plategroup = pygame.sprite.Group()
@@ -60,6 +60,8 @@ class Plate(pygame.sprite.Sprite):
         self.ingridients = []
 
     def __eq__(self, other):
+        # if set(self.ingridients) == set(other.ingridients):
+        #     return True                  требовалось хеширование
         for el in other.ingridients:
             if el not in self.ingridients:
                 return False
@@ -77,16 +79,3 @@ class Plate(pygame.sprite.Sprite):
     def update(self):
         self.rect.x = self.parent.x
         self.rect.y = self.parent.y
-
-
-class Ingridients(pygame.sprite.Sprite):
-    def __init__(self, x, y, title, allsprites, cell_size=50):
-        super().__init__(allsprites)
-
-        self.title = title
-
-        self.image = load_image(visual_food[self.title][0])
-        self.image = pygame.transform.scale(self.image, (cell_size * 0.4, cell_size * 0.4))
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y

@@ -29,12 +29,12 @@ class Player(pygame.sprite.Sprite):
                     frame_location, self.rect.size)))
 
     def find(self, foodgroup):
-
         if self.direction == "U":
             self.rect.y -= 20
             sprite = pygame.sprite.spritecollide(self, foodgroup, False)
+            print(sprite)
             if sprite is not None:
-                sprite = sprite[0]
+                sprite = sprite[-1]
                 sprite.parent = self
             # print("Текущий объект", sprite.title)
             self.rect.y += 20
@@ -77,7 +77,7 @@ class Player(pygame.sprite.Sprite):
             sprite = pygame.sprite.spritecollide(self, obstacle, False)
             # print(sprite)
             if sprite is not None and 'Floor' not in str(sprite) and "Wall" not in str(sprite):
-                sprite = sprite[0]
+                sprite = sprite[-1]
                 sprite_now.parent = sprite
             # print("Текущий объект", sprite)
             self.rect.y += 20
@@ -86,7 +86,7 @@ class Player(pygame.sprite.Sprite):
         elif self.direction == "D":
             self.rect.y += 20
             sprite = pygame.sprite.spritecollide(self, obstacle, False)
-            if sprite is not None and 'Floor' not in str(sprite) and "Wall" not in str(sprite):
+            if sprite and 'Floor' not in str(sprite) and "Wall" not in str(sprite):
                 sprite = sprite[0]
                 sprite_now.parent = sprite
             # print("Текущий объект", sprite)
@@ -96,7 +96,7 @@ class Player(pygame.sprite.Sprite):
         elif self.direction == "R":
             self.rect.x -= 20
             sprite = pygame.sprite.spritecollide(self, obstacle, False)
-            if sprite is not None and 'Floor' not in str(sprite) and "Wall" not in str(sprite):
+            if sprite and 'Floor' not in str(sprite) and "Wall" not in str(sprite):
                 sprite = sprite[0]
                 sprite_now.parent = sprite
             # print("Текущий объект", sprite)
@@ -106,7 +106,7 @@ class Player(pygame.sprite.Sprite):
         elif self.direction == "L":
             self.rect.x -= 20
             sprite = pygame.sprite.spritecollide(self, obstacle, False)
-            if sprite is not None and 'Floor' not in str(sprite) and "Wall" not in str(sprite):
+            if sprite and 'Floor' not in str(sprite) and "Wall" not in str(sprite):
                 sprite = sprite[0]
                 sprite_now.parent = sprite
 
@@ -114,53 +114,48 @@ class Player(pygame.sprite.Sprite):
             self.rect.x += 20
             return 1
 
-    def update(self, obstacle, foodgroup=None, plategroup=None, event=None):
-        if event is not None:
-            sprite = pygame.sprite.spritecollideany(self, foodgroup)
-            if event.button == pygame.K_m and sprite:
-                self.object = sprite
-                sprite.parent = self
-        else:
-            go = False
-            x = self.rect.x
-            y = self.rect.y
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_LEFT]:
-                self.rect.x -= 5
-                self.direction = "L"
-                if pygame.sprite.spritecollide(self, obstacle, False):
-                    self.rect.x += 5
-                else:
-                    go = True
+    def update(self, obstacle, foodgroup=None, plategroup=None, ):
 
-            if keys[pygame.K_RIGHT]:
+        go = False
+        x = self.rect.x
+        y = self.rect.y
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= 5
+            self.direction = "L"
+            if pygame.sprite.spritecollide(self, obstacle, False):
                 self.rect.x += 5
-                self.direction = "R"
-                if pygame.sprite.spritecollide(self, obstacle, False):
+            else:
+                go = True
 
-                    self.rect.x -= 5
-                else:
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += 5
+            self.direction = "R"
+            if pygame.sprite.spritecollide(self, obstacle, False):
 
-                    go = True
-            if keys[pygame.K_UP]:
-                self.rect.y -= 5
-                self.direction = "U"
-                if pygame.sprite.spritecollide(self, obstacle, False):
-                    self.rect.y += 5
-                else:
-                    go = True
+                self.rect.x -= 5
+            else:
 
-            if keys[pygame.K_DOWN]:
+                go = True
+        if keys[pygame.K_UP]:
+            self.rect.y -= 5
+            self.direction = "U"
+            if pygame.sprite.spritecollide(self, obstacle, False):
                 self.rect.y += 5
-                self.direction = "D"
-                if pygame.sprite.spritecollide(self, obstacle, False):
-                    self.rect.y -= 5
-                else:
-                    go = True
+            else:
+                go = True
 
-            if go:
-                self.cur_frame = (self.cur_frame + 1) % len(self.frames)
-                self.image = self.frames[self.cur_frame]
+        if keys[pygame.K_DOWN]:
+            self.rect.y += 5
+            self.direction = "D"
+            if pygame.sprite.spritecollide(self, obstacle, False):
+                self.rect.y -= 5
+            else:
+                go = True
+
+        if go:
+            self.cur_frame = (self.cur_frame + 1) % len(self.frames)
+            self.image = self.frames[self.cur_frame]
 
 
 class SecondPlayer(pygame.sprite.Sprite):
