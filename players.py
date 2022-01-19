@@ -1,5 +1,6 @@
 import pygame.sprite
 from load_image import load_image
+from food import Food
 
 
 class Player(pygame.sprite.Sprite):
@@ -79,8 +80,14 @@ class Player(pygame.sprite.Sprite):
             if sprite is not None and 'Floor' not in str(sprite) and "Wall" not in str(sprite):
                 sprite = sprite[-1]
                 sprite_now.parent = sprite
+                if "Knife" in str(sprite):
+                    print(sprite_now)
+
+                    sprite_now.sliced = True
+                    sprite_now.change_pic()
             # print("Текущий объект", sprite)
             self.rect.y += 20
+            print(sprite_now.sliced)
             return 1
 
         elif self.direction == "D":
@@ -91,6 +98,11 @@ class Player(pygame.sprite.Sprite):
                 sprite_now.parent = sprite
             # print("Текущий объект", sprite)
             self.rect.y -= 20
+            if "Knife" in str(sprite):
+                print(sprite_now)
+
+                sprite_now.sliced = True
+                sprite_now.change_pic()
             return 1
 
         elif self.direction == "R":
@@ -101,6 +113,11 @@ class Player(pygame.sprite.Sprite):
                 sprite_now.parent = sprite
             # print("Текущий объект", sprite)
             self.rect.x += 20
+            if "Knife" in str(sprite):
+                print(sprite_now)
+
+                sprite_now.sliced = True
+                sprite_now.change_pic()
             return 1
 
         elif self.direction == "L":
@@ -112,6 +129,11 @@ class Player(pygame.sprite.Sprite):
 
             # print("Текущий объект", sprite)
             self.rect.x += 20
+            if "Knife" in str(sprite):
+                print(sprite_now)
+
+                sprite_now.sliced = True
+                sprite_now.change_pic()
             return 1
 
     def update(self, obstacle, foodgroup=None, plategroup=None, ):
