@@ -29,63 +29,133 @@ class Player(pygame.sprite.Sprite):
                     frame_location, self.rect.size)))
 
     def find(self, foodgroup):
-        print(self.direction)
         if self.direction == "U":
             self.rect.y -= 20
+            sprite = pygame.sprite.spritecollide(self, foodgroup, False)
+            print(sprite)
+            if sprite is not None:
+                sprite = sprite[-1]
+                sprite.parent = self
+            # print("Текущий объект", sprite.title)
+            self.rect.y += 20
+            return (1, sprite)
+
+        elif self.direction == "D":
+            self.rect.y += 20
             sprite = pygame.sprite.spritecollide(self, foodgroup, False)
             if sprite is not None:
                 sprite = sprite[0]
                 sprite.parent = self
-            print("Текущий объект", sprite.title)
-            self.rect.y += 20
+            # print("Текущий объект", sprite.title)
+            self.rect.y -= 20
+            return (1, sprite)
 
-    def update(self, obstacle, foodgroup=None, plategroup=None, event=None):
-        if event is not None:
-            sprite = pygame.sprite.spritecollideany(self, foodgroup)
-            if event.button == pygame.K_m and sprite:
-                self.object = sprite
+        elif self.direction == "R":
+            self.rect.x -= 20
+            sprite = pygame.sprite.spritecollide(self, foodgroup, False)
+            if sprite is not None:
+                sprite = sprite[0]
                 sprite.parent = self
-        else:
-            go = False
-            x = self.rect.x
-            y = self.rect.y
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_LEFT]:
-                self.rect.x -= 5
-                if pygame.sprite.spritecollide(self, obstacle, False):
-                    self.rect.x += 5
-                else:
-                    self.direction = "L"
-                    go = True
+            # print("Текущий объект", sprite.title)
+            self.rect.x += 20
+            return (1, sprite)
 
-            if keys[pygame.K_RIGHT]:
+        elif self.direction == "L":
+            self.rect.x -= 20
+            sprite = pygame.sprite.spritecollide(self, foodgroup, False)
+            if sprite is not None:
+                sprite = sprite[0]
+                sprite.parent = self
+            # print("Текущий объект", sprite.title)
+            self.rect.x += 20
+            return (1, sprite)
+
+    def put(self, obstacle, sprite_now):
+
+        if self.direction == "U":
+            self.rect.y -= 20
+            sprite = pygame.sprite.spritecollide(self, obstacle, False)
+            # print(sprite)
+            if sprite is not None and 'Floor' not in str(sprite) and "Wall" not in str(sprite):
+                sprite = sprite[-1]
+                sprite_now.parent = sprite
+            # print("Текущий объект", sprite)
+            self.rect.y += 20
+            return 1
+
+        elif self.direction == "D":
+            self.rect.y += 20
+            sprite = pygame.sprite.spritecollide(self, obstacle, False)
+            if sprite and 'Floor' not in str(sprite) and "Wall" not in str(sprite):
+                sprite = sprite[0]
+                sprite_now.parent = sprite
+            # print("Текущий объект", sprite)
+            self.rect.y -= 20
+            return 1
+
+        elif self.direction == "R":
+            self.rect.x -= 20
+            sprite = pygame.sprite.spritecollide(self, obstacle, False)
+            if sprite and 'Floor' not in str(sprite) and "Wall" not in str(sprite):
+                sprite = sprite[0]
+                sprite_now.parent = sprite
+            # print("Текущий объект", sprite)
+            self.rect.x += 20
+            return 1
+
+        elif self.direction == "L":
+            self.rect.x -= 20
+            sprite = pygame.sprite.spritecollide(self, obstacle, False)
+            if sprite and 'Floor' not in str(sprite) and "Wall" not in str(sprite):
+                sprite = sprite[0]
+                sprite_now.parent = sprite
+
+            # print("Текущий объект", sprite)
+            self.rect.x += 20
+            return 1
+
+    def update(self, obstacle, foodgroup=None, plategroup=None, ):
+
+        go = False
+        x = self.rect.x
+        y = self.rect.y
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= 5
+            self.direction = "L"
+            if pygame.sprite.spritecollide(self, obstacle, False):
                 self.rect.x += 5
-                if pygame.sprite.spritecollide(self, obstacle, False):
-                    print("Столкновение")
-                    self.rect.x -= 5
-                else:
-                    self.direction = "R"
-                    go = True
-            if keys[pygame.K_UP]:
-                self.rect.y -= 5
-                if pygame.sprite.spritecollide(self, obstacle, False):
-                    self.rect.y += 5
-                else:
-                    self.direction = "U"
-                    go = True
+            else:
+                go = True
 
-            if keys[pygame.K_DOWN]:
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += 5
+            self.direction = "R"
+            if pygame.sprite.spritecollide(self, obstacle, False):
+
+                self.rect.x -= 5
+            else:
+
+                go = True
+        if keys[pygame.K_UP]:
+            self.rect.y -= 5
+            self.direction = "U"
+            if pygame.sprite.spritecollide(self, obstacle, False):
                 self.rect.y += 5
-                if pygame.sprite.spritecollide(self, obstacle, False):
-                    self.rect.y -= 5
-                else:
-                    self.direction = "D"
-                    go = True
+            else:
+                go = True
 
-            if go:
-                print(self.direction)
-                self.cur_frame = (self.cur_frame + 1) % len(self.frames)
-                self.image = self.frames[self.cur_frame]
+        if keys[pygame.K_DOWN]:
+            self.rect.y += 5
+            self.direction = "D"
+            if pygame.sprite.spritecollide(self, obstacle, False):
+                self.rect.y -= 5
+            else:
+                go = True
+
+        if go:
+            self.cur_frame = (self.cur_frame + 1) % len(self.frames)
+            self.image = self.frames[self.cur_frame]
 
 
 class SecondPlayer(pygame.sprite.Sprite):
