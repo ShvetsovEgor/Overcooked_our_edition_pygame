@@ -82,9 +82,11 @@ class Player(pygame.sprite.Sprite):
                 sprite_now.parent = sprite
                 if "Knife" in str(sprite):
                     print(sprite_now)
-
                     sprite_now.sliced = True
                     sprite_now.change_pic()
+                elif "Table" in str(sprite) and sprite_now.sliced:
+                    sprite_now.place = True
+                    sprite.checkout()
             # print("Текущий объект", sprite)
             self.rect.y += 20
             print(sprite_now.sliced)
@@ -100,9 +102,11 @@ class Player(pygame.sprite.Sprite):
             self.rect.y -= 20
             if "Knife" in str(sprite):
                 print(sprite_now)
-
                 sprite_now.sliced = True
                 sprite_now.change_pic()
+            elif "Table" in str(sprite) and sprite_now.sliced:
+                sprite_now.place = True
+                sprite.checkout()
             return 1
 
         elif self.direction == "R":
@@ -115,9 +119,11 @@ class Player(pygame.sprite.Sprite):
             self.rect.x += 20
             if "Knife" in str(sprite):
                 print(sprite_now)
-
                 sprite_now.sliced = True
                 sprite_now.change_pic()
+            elif "Table" in str(sprite) and sprite_now.sliced:
+                sprite_now.place = True
+                sprite.checkout()
             return 1
 
         elif self.direction == "L":
@@ -134,6 +140,9 @@ class Player(pygame.sprite.Sprite):
 
                 sprite_now.sliced = True
                 sprite_now.change_pic()
+            elif "Table" in str(sprite) and sprite_now.sliced:
+                sprite_now.place = True
+                sprite.checkout()
             return 1
 
     def update(self, obstacle, foodgroup=None, plategroup=None, ):
