@@ -15,7 +15,7 @@ visual_food = {"Название": ["Нормальное состояние", "
 # надо заполнить
 
 class Food(pygame.sprite.Sprite):
-    def __init__(self, title, parent, allsprites, foodgroup, sliced=False, boiled=False, fried=False, shaked=False):
+    def __init__(self, title, parent, allsprites, foodgroup, sliced=False, boiled=False, fried=False, shaked=False, place=False):
         super().__init__(allsprites, foodgroup)
         if sliced:
             self.image = load_image(visual_food[title][1])
