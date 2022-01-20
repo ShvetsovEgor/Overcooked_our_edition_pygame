@@ -2,13 +2,10 @@ import csv
 import sqlite3
 import pygame.sprite
 from random import choice
-from interier import Floor, Wall, Fridge, Oven, Knife, Sink, Box, Table
+from interier import Floor, Wall, Fridge, Oven, Knife, Sink, Box, Table, Checker
 from players import Player, SecondPlayer
 from dishes import *
 import datetime
-
-infoObject = pygame.display.Info()
-size = width, height = (infoObject.current_w - 50, infoObject.current_h - 50)
 
 
 class GamePlayScene:
@@ -18,6 +15,7 @@ class GamePlayScene:
         self.allsprites = pygame.sprite.Group()
         self.foodgroup = pygame.sprite.Group()
         self.plategroup = pygame.sprite.Group()
+        self.put_able = pygame.sprite.Group()
         self.parent = parent
         self.width = self.parent.width
         self.height = self.parent.height
@@ -38,9 +36,9 @@ class GamePlayScene:
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        self.first_player.find(self.foodgroup, self.obstacle)
+                        self.first_player.find(self.foodgroup, self.put_able, self.plategroup)
                     elif event.key == pygame.K_e:
-                        self.second_player.find(self.foodgroup)
+                        self.second_player.find(self.foodgroup, self.put_able, self.plategroup)
             if self.running:
                 font = pygame.font.Font(None, 50)
                 text = font.render(str(datetime.datetime.now() - self.first_time), True, (100, 255, 100))
@@ -48,15 +46,18 @@ class GamePlayScene:
                 self.screen.fill("white")
 
                 self.allsprites.draw(self.screen)
-                self.obstacle.draw(self.screen)
-                self.foodgroup.draw(self.screen)
-                self.plategroup.draw(self.screen)
                 self.plategroup.update()
-                self.playersgroup.draw(self.screen)
-                self.playersgroup.update(self.obstacle)
+                self.plategroup.draw(self.screen)
+
+
                 self.foodgroup.update()
-                print(self.plategroup)
-                screen.blit(text, (width - 300, 50))
+                self.foodgroup.draw(self.screen)
+
+                self.playersgroup.update(self.obstacle)
+                self.playersgroup.draw(self.screen)
+
+                screen.blit(font.render(" ".join(self.titles), True, (100, 255, 100)), (self.width - self.border_x, 100))
+                screen.blit(text, (self.width - self.border_x, 50))
                 clock.tick(FPS)
                 pygame.display.flip()
         pygame.quit()
@@ -73,8 +74,12 @@ class GamePlayScene:
         res = cur.execute(f"SELECT * FROM history WHERE level_id = {int(self.filenumber)}").fetchone()
         self.title = res[2]
         self.dishes = []
+        self.titles = []
         for el in res[3].split(", "):
             self.dishes += [globals()[el]]
+            self.titles += [el]
+            print(self.dishes)
+
         self.ingridients = {}
         for el in res[4].split(";"):
             el = el.split(": ")
@@ -83,7 +88,7 @@ class GamePlayScene:
                 self.ingridients[el[0]] += el[1].split(", ")
             else:
                 self.ingridients[el[0]] = el[1].split(", ")
-
+        print(self.ingridients)
         self.generate_level()
 
     def generate_level(self):
@@ -97,11 +102,11 @@ class GamePlayScene:
                 elif self.board[y][x][0] == '#':
                     Wall(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
                 elif self.board[y][x][0] == 'f':
-                    Fridge(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
+                    Fridge(vect_x, vect_y, self.allsprites, self.obstacle, self.put_able, self.cell_size)
                 elif self.board[y][x][0] == 'o':
-                    Oven(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
+                    Oven(vect_x, vect_y, self.allsprites, self.obstacle, self.put_able, self.cell_size)
                 elif self.board[y][x][0] == 'k':
-                    Knife(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
+                    Knife(vect_x, vect_y, self.allsprites, self.obstacle, self.put_able, self.cell_size)
                 elif self.board[y][x][0] == 's':
                     Sink(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
                 elif self.board[y][x][0] == 'b':
@@ -110,9 +115,12 @@ class GamePlayScene:
                         f = Food(title, parent, self.allsprites, self.foodgroup)
                         f.image = pygame.transform.scale(f.image, (self.cell_size, self.cell_size))
                 elif self.board[y][x][0] == 't':
-                    t = Table(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
+                    t = Table(vect_x, vect_y, self.allsprites, self.obstacle, self.put_able, self.cell_size)
                     if len(self.board[y][x]) == 2 and self.board[y][x][1] == "p":
-                        Plate(t, self.allsprites, self.plategroup)
+                        Plate(t, self.allsprites, self.plategroup, self.foodgroup, self.put_able)
+                elif self.board[y][x][0] == 'c':
+                    self.checker = Checker(vect_x, vect_y, self.allsprites, self, self.obstacle, self.put_able,
+                                           self.cell_size)
                 # Декодировка символов в классы
 
         self.rows = x
@@ -120,8 +128,12 @@ class GamePlayScene:
 
         if self.parent.kol == 2:
             x, y = choice(floors)
-            self.first_player = Player(x, y, self.playersgroup, self.allsprites, self.cell_size)
-            self.second_player = SecondPlayer(x, y, self.playersgroup, self.allsprites)
+            self.first_player = Player(x, y, self.playersgroup, self.allsprites, self.cell_size - 5)
+            self.first_player.dishes = self.dishes
+            self.second_player = SecondPlayer(x, y, self.playersgroup, self.allsprites, self.cell_size - 5)
         elif self.parent.kol == 1:
             x, y = choice(floors)
             self.first_player = Player(x, y, self.playersgroup, self.allsprites, self.cell_size - 5)
+
+    def show_result(self):
+        pass

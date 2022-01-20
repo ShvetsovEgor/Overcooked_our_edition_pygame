@@ -1,6 +1,34 @@
 import pygame
 from load_image import load_image
+
 allsprites = pygame.sprite.Group
+
+
+class Checker(pygame.sprite.Sprite):
+    def __init__(self, x, y, allsprites, parent, obstacle, put_able, cell_size=50):
+        super().__init__(allsprites, obstacle, put_able)
+        self.parent = parent
+        self.image = pygame.transform.scale(load_image("conveyer.jpg"), (cell_size, cell_size))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.result = {}
+
+    def check(self, obj):
+
+        print(obj.ingridients, 'kk')
+
+
+        for el in self.parent.dishes:
+            print(el.ingridients, 'ingridients')
+            if obj == el:
+                self.result[el] = 1
+        if all(self.result.values()):
+            print('you won')
+
+
+
+
 
 class Floor(pygame.sprite.Sprite):
     def __init__(self, x, y, allsprites, cell_size=50):
@@ -22,8 +50,8 @@ class Wall(pygame.sprite.Sprite):
 
 
 class Fridge(pygame.sprite.Sprite):
-    def __init__(self, x, y, allsprites, obstacle, cell_size=50):
-        super().__init__(allsprites, obstacle)
+    def __init__(self, x, y, allsprites, obstacle, put_able, cell_size=50):
+        super().__init__(allsprites, obstacle, put_able)
         self.image = load_image("fridge.png")
         width, height = self.image.get_rect().size
         k = width / cell_size
@@ -34,8 +62,8 @@ class Fridge(pygame.sprite.Sprite):
 
 
 class Oven(pygame.sprite.Sprite):
-    def __init__(self, x, y, allsprites, obstacle, cell_size=50):
-        super().__init__(allsprites, obstacle)
+    def __init__(self, x, y, allsprites, obstacle, put_able, cell_size=50):
+        super().__init__(allsprites, obstacle, put_able)
         self.image = load_image("oven.png")
         width, height = self.image.get_rect().size
         k = width / cell_size
@@ -46,8 +74,8 @@ class Oven(pygame.sprite.Sprite):
 
 
 class Knife(pygame.sprite.Sprite):
-    def __init__(self, x, y, allsprites, obstacle, cell_size=50):
-        super().__init__(allsprites, obstacle)
+    def __init__(self, x, y, allsprites, obstacle, put_able, cell_size=50):
+        super().__init__(allsprites, obstacle, put_able)
         self.image = load_image("knife.png")
         width, height = self.image.get_rect().size
         k = width / cell_size
@@ -82,8 +110,8 @@ class Box(pygame.sprite.Sprite):
 
 
 class Table(pygame.sprite.Sprite):
-    def __init__(self, x, y, allsprites, obstacle, cell_size=50):
-        super().__init__(allsprites, obstacle)
+    def __init__(self, x, y, allsprites, obstacle, put_able, cell_size=50):
+        super().__init__(allsprites, obstacle, put_able)
         self.image = load_image("table.png")
         width, height = self.image.get_rect().size
         k = width / cell_size
@@ -92,6 +120,5 @@ class Table(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y - int(height / k) + cell_size
 
-
     def checkout(self):
-       pass
+        pass
