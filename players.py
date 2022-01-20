@@ -30,128 +30,69 @@ class Player(pygame.sprite.Sprite):
                 self.frames.append(sheet.subsurface(pygame.Rect(
                     frame_location, self.rect.size)))
 
-    def find(self, foodgroup, obstacle):
+    def find(self, foodgroup, put_able, plategroup):
         # горячие клавиши
+        x, y = self.rect.x, self.rect.y
         if not self.object:
             if self.direction == "U":
                 self.rect.y -= self.cell_size
                 sprite = pygame.sprite.spritecollide(self, foodgroup, False)
-                if sprite:
-                    sprite = sprite[-1]
-                    sprite.parent = self
-                    self.object = sprite
-                    print("Текущий объект", sprite.title, sprite.rect)
-                self.rect.y += self.cell_size
-
             elif self.direction == "D":
                 self.rect.y += self.cell_size
                 sprite = pygame.sprite.spritecollide(self, foodgroup, False)
-                if sprite:
-                    sprite = sprite[-1]
-                    sprite.parent = self
-                    self.object = sprite
-                # print("Текущий объект", sprite.title)
-                self.rect.y -= self.cell_size
-
             elif self.direction == "R":
                 self.rect.x += self.cell_size
                 sprite = pygame.sprite.spritecollide(self, foodgroup, False)
-                if sprite:
-                    sprite = sprite[-1]
-                    sprite.parent = self
-                    self.object = sprite
-                # print("Текущий объект", sprite.title)
-                self.rect.x -= self.cell_size
-
             elif self.direction == "L":
                 self.rect.x -= self.cell_size
                 sprite = pygame.sprite.spritecollide(self, foodgroup, False)
-                if sprite:
+            if sprite:
+                plates = [x for x in sprite if "Plate" in str(x)]
+                if plates:
+                    plates[-1].parent = self
+                    self.object = plates[-1]
+                else:
                     sprite = sprite[-1]
                     sprite.parent = self
                     self.object = sprite
-                # print("Текущий объект", sprite.title)
-                self.rect.x += self.cell_size
-
         else:
             if self.direction == "U":
                 self.rect.y -= self.cell_size
-                sprite = pygame.sprite.spritecollide(self, obstacle, False)
-                # print(sprite)
-                if sprite and 'Floor' not in str(sprite) and "Wall" not in str(sprite):
-                    sprite = sprite[-1]
-                    self.object.parent = sprite
-                    if "Knife" in str(sprite):
-                        print(self.object)
-                        self.object.sliced = True
-                        self.object.change_pic(self.cell_size)
-
-                    elif "Table" in str(sprite) and self.object.sliced:
-                        self.object.place = True
-                        sprite.checkout()
-                    self.object = False
-                self.rect.y += self.cell_size
-
+                sprites = pygame.sprite.spritecollide(self, put_able, False)
             elif self.direction == "D":
                 self.rect.y += self.cell_size
-                sprite = pygame.sprite.spritecollide(self, obstacle, False)
-                if sprite and 'Floor' not in str(sprite) and "Wall" not in str(sprite):
-                    sprite = sprite[-1]
-                    self.object.parent = sprite
-                    # print("Текущий объект", sprite)
-
-                    if "Knife" in str(sprite):
-                        print(self.object)
-                        self.object.sliced = True
-
-                        self.object.change_pic(self.cell_size)
-
-                    elif "Table" in str(sprite) and self.object.sliced:
-                        self.object.place = True
-                        sprite.checkout()
-                    self.object = False
-                self.rect.y -= self.cell_size
-
+                sprites = pygame.sprite.spritecollide(self, put_able, False)
             elif self.direction == "R":
                 self.rect.x += self.cell_size
-                sprite = pygame.sprite.spritecollide(self, obstacle, False)
-                if sprite and 'Floor' not in str(sprite) and "Wall" not in str(sprite):
-                    sprite = sprite[-1]
-                    self.object.parent = sprite
-
-                    # print("Текущий объект", sprite)
-
-                    if "Knife" in str(sprite):
-                        print(self.object)
-                        self.object.sliced = True
-                        self.object.change_pic(self.cell_size)
-
-                    elif "Table" in str(sprite) and self.object.sliced:
-                        self.object.place = True
-                        sprite.checkout()
-                    self.object = False
-                self.rect.x -= self.cell_size
-
+                sprites = pygame.sprite.spritecollide(self, put_able, False)
             elif self.direction == "L":
                 self.rect.x -= self.cell_size
-                sprite = pygame.sprite.spritecollide(self, obstacle, False)
-                if sprite and 'Floor' not in str(sprite) and "Wall" not in str(sprite):
-                    sprite = sprite[-1]
-                    self.object.parent = sprite
+                sprites = pygame.sprite.spritecollide(self, put_able, False)
 
-                    # print("Текущий объект", sprite)
+            if sprites and 'Floor' not in str(sprites[-1]) and "Wall" not in str(sprites[-1]):
+                print(sprites)
+                plates = [x for x in sprites if "Plate" in str(x)]
+                print(plates)
+                print(plates)
+                if plates:
+                    plates[-1] += self.object
+                    print(plates[-1].ingridients)
+                    self.object.parent = plates[-1]
 
-                    if "Knife" in str(sprite):
+
+                else:
+                    self.object.parent = sprites[-1]
+                    if "Knife" in str(sprites[-1]):
                         print(self.object)
-
                         self.object.sliced = True
                         self.object.change_pic(self.cell_size)
 
-                    elif "Table" in str(sprite) and self.object.sliced:
-                        self.object.place = True
-                        sprite.checkout()
-                    self.object = False
-                self.rect.x += self.cell_size
+                        # elif "Table" in str(sprites[-1]) and self.object.sliced:
+                        #     self.object.place = True
+                        #     sprite.checkout()
+                        #     self.object = False
+                self.object = False
+        self.rect.x, self.rect.y = x, y
 
     def update(self, obstacle, foodgroup=None, plategroup=None):
         go = False

@@ -1,26 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="efed66b3-1ce8-43f2-aa25-1d8ca2329b0f" name="Changes" comment="19.01.22">
-      <change beforePath="$PROJECT_DIR$/.idea/Pygame-overcooked.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Pygame-overcooked.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_01_2022_22_55_[Changes]/97_sush.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_01_2022_22_55_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_01_2022_22_55__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_01_2022_16_15__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_01_2022_16_15__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_01_2022_23_07__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_01_2022_23_07__Changes_.xml" afterDir="false" />
+    <list default="true" id="efed66b3-1ce8-43f2-aa25-1d8ca2329b0f" name="Changes" comment="Исправлены баги с взятием предметов, на столах появляются тарелки">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/box.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/box.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/fridge_opened.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/fried_potato.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/table.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/table.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dishes.py" beforeDir="false" afterPath="$PROJECT_DIR$/dishes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/food.py" beforeDir="false" afterPath="$PROJECT_DIR$/food.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gameplay.py" beforeDir="false" afterPath="$PROJECT_DIR$/gameplay.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/level_history.db" beforeDir="false" afterPath="$PROJECT_DIR$/level_history.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/levels/level1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/levels/level1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/levels/level2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/levels/level2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/levels/Руководство по заполнению уровней.txt" beforeDir="false" afterPath="$PROJECT_DIR$/levels/Руководство по заполнению уровней.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interier.py" beforeDir="false" afterPath="$PROJECT_DIR$/interier.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/players.py" beforeDir="false" afterPath="$PROJECT_DIR$/players.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,7 +18,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Egor's_branch" />
+        <entry key="$PROJECT_DIR$" value="Ann's_branch" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -187,7 +174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1642616759245</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Исправлены баги с взятием предметов, на столах появляются тарелки">
+      <created>1642670605585</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1642670605597</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -205,6 +199,18 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Персонаж крадет огурец" />
     <MESSAGE value="19.01.22" />
-    <option name="LAST_COMMIT_MESSAGE" value="19.01.22" />
+    <MESSAGE value="Исправлены баги с взятием предметов, на столах появляются тарелки" />
+    <option name="LAST_COMMIT_MESSAGE" value="Исправлены баги с взятием предметов, на столах появляются тарелки" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/gameplay.py</url>
+          <line>35</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

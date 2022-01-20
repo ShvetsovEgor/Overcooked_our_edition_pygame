@@ -18,6 +18,7 @@ class GamePlayScene:
         self.allsprites = pygame.sprite.Group()
         self.foodgroup = pygame.sprite.Group()
         self.plategroup = pygame.sprite.Group()
+        self.put_able = pygame.sprite.Group()
         self.parent = parent
         self.width = self.parent.width
         self.height = self.parent.height
@@ -38,7 +39,7 @@ class GamePlayScene:
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        self.first_player.find(self.foodgroup, self.obstacle)
+                        self.first_player.find(self.foodgroup, self.put_able, self.plategroup)
                     elif event.key == pygame.K_e:
                         self.second_player.find(self.foodgroup)
             if self.running:
@@ -48,14 +49,14 @@ class GamePlayScene:
                 self.screen.fill("white")
 
                 self.allsprites.draw(self.screen)
-                self.obstacle.draw(self.screen)
-                self.foodgroup.draw(self.screen)
                 self.plategroup.draw(self.screen)
                 self.plategroup.update()
+                self.obstacle.draw(self.screen)
+                self.foodgroup.draw(self.screen)
+                self.foodgroup.update()
                 self.playersgroup.draw(self.screen)
                 self.playersgroup.update(self.obstacle)
-                self.foodgroup.update()
-                print(self.plategroup)
+
                 screen.blit(text, (width - 300, 50))
                 clock.tick(FPS)
                 pygame.display.flip()
@@ -97,11 +98,11 @@ class GamePlayScene:
                 elif self.board[y][x][0] == '#':
                     Wall(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
                 elif self.board[y][x][0] == 'f':
-                    Fridge(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
+                    Fridge(vect_x, vect_y, self.allsprites, self.obstacle, self.put_able, self.cell_size)
                 elif self.board[y][x][0] == 'o':
-                    Oven(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
+                    Oven(vect_x, vect_y, self.allsprites, self.obstacle, self.put_able, self.cell_size)
                 elif self.board[y][x][0] == 'k':
-                    Knife(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
+                    Knife(vect_x, vect_y, self.allsprites, self.obstacle, self.put_able, self.cell_size)
                 elif self.board[y][x][0] == 's':
                     Sink(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
                 elif self.board[y][x][0] == 'b':
@@ -110,9 +111,9 @@ class GamePlayScene:
                         f = Food(title, parent, self.allsprites, self.foodgroup)
                         f.image = pygame.transform.scale(f.image, (self.cell_size, self.cell_size))
                 elif self.board[y][x][0] == 't':
-                    t = Table(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
+                    t = Table(vect_x, vect_y, self.allsprites, self.obstacle, self.put_able, self.cell_size)
                     if len(self.board[y][x]) == 2 and self.board[y][x][1] == "p":
-                        Plate(t, self.allsprites, self.plategroup)
+                        Plate(t, self.allsprites, self.plategroup, self.foodgroup, self.put_able)
                 # Декодировка символов в классы
 
         self.rows = x

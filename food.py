@@ -17,10 +17,7 @@ visual_food = {"Название": ["Нормальное состояние", "
 class Food(pygame.sprite.Sprite):
     def __init__(self, title, parent, allsprites, foodgroup, sliced=False, boiled=False, fried=False, shaked=False, place=False):
         super().__init__(allsprites, foodgroup)
-        if sliced:
-            self.image = load_image(visual_food[title][1])
-        else:
-            self.image = load_image(visual_food[title][0])  # загружаем фото которое соответсвует названию еды
+        self.image = load_image(visual_food[title][0])  # загружаем фото которое соответсвует названию еды
         self.parent = parent  # запоминаем к какому объекту еда прикреплена
         x, y, width, height = self.image.get_rect()
         self.rect = self.image.get_rect()
@@ -61,10 +58,10 @@ plategroup = pygame.sprite.Group()
 
 
 class Plate(pygame.sprite.Sprite):
-    def __init__(self, parent, allsprites, plategroup):
-        super().__init__(allsprites, plategroup)
+    def __init__(self, parent, allsprites, plategroup, foodgroup, put_able):
+        super().__init__(allsprites, plategroup, foodgroup, put_able)
         self.parent = parent
-        self.image = load_image("01_dish.png")
+        self.image = pygame.transform.scale(load_image("01_dish.png"), (50, 50))
         self.rect = self.image.get_rect()
         self.clear = True
         self.ingridients = []
@@ -80,7 +77,7 @@ class Plate(pygame.sprite.Sprite):
         return True
 
     def __iadd__(self, other):
-        self.ingridients += other
+        self.ingridients += [other]
         return self
 
     def __hash__(self):
@@ -89,3 +86,8 @@ class Plate(pygame.sprite.Sprite):
     def update(self):
         self.rect.x = self.parent.rect.x
         self.rect.y = self.parent.rect.y
+        for el in self.ingridients:
+            el.rect.x = self.parent.rect.x
+            el.rect.y = self.parent.rect.y
+
+
