@@ -15,12 +15,10 @@ visual_food = {"Название": ["Нормальное состояние", "
 # надо заполнить
 
 class Food(pygame.sprite.Sprite):
-    def __init__(self, title, parent, allsprites, foodgroup, sliced=False, boiled=False, fried=False, shaked=False, place=False):
+    def __init__(self, title, parent, allsprites, foodgroup, sliced=False, boiled=False, fried=False, shaked=False,
+                 place=False):
         super().__init__(allsprites, foodgroup)
-        if sliced:
-            self.image = load_image(visual_food[title][1])
-        else:
-            self.image = load_image(visual_food[title][0])  # загружаем фото которое соответсвует названию еды
+        self.image = load_image(visual_food[title][0])  # загружаем фото которое соответсвует названию еды
         self.parent = parent  # запоминаем к какому объекту еда прикреплена
         x, y, width, height = self.image.get_rect()
         self.rect = self.image.get_rect()
@@ -48,9 +46,9 @@ class Food(pygame.sprite.Sprite):
         self.rect.x = self.parent.rect.x
         self.rect.y = self.parent.rect.y
 
-    def change_pic(self):
+    def change_pic(self, cell_size):
         if self.sliced:
-            self.image = load_image(visual_food[self.title][1])
+            self.image = pygame.transform.scale(load_image(visual_food[self.title][1]), (cell_size, cell_size))
             x, y, width, height = self.image.get_rect()
             self.rect = self.image.get_rect()
             self.rect.x = self.parent.rect.x
@@ -61,15 +59,18 @@ plategroup = pygame.sprite.Group()
 
 
 class Plate(pygame.sprite.Sprite):
-    def __init__(self, parent, allsprites, plategroup):
-        super().__init__(allsprites, plategroup)
+    def __init__(self, parent, allsprites, plategroup, foodgroup, put_able):
+        super().__init__(allsprites, plategroup, foodgroup, put_able)
         self.parent = parent
-        self.image = load_image("red.png")
+        self.image = pygame.transform.scale(load_image("02_dish_2.png"), (50, 50))
         self.rect = self.image.get_rect()
         self.clear = True
         self.ingridients = []
 
     def __eq__(self, other):
+        other.ingridients = other.ingridients[0]
+        print(other.ingridients, 'other')
+        print(self.ingridients, 'self')
         # if set(self.ingridients) == set(other.ingridients):
         #     return True                  требовалось хеширование
         for el in other.ingridients:
@@ -77,15 +78,19 @@ class Plate(pygame.sprite.Sprite):
                 return False
         if len(self.ingridients) != len(other.ingridients):
             return False
+        print('true')
         return True
 
     def __iadd__(self, other):
-        self.ingridients += other
+        self.ingridients += [other]
         return self
 
     def __hash__(self):
         return id(self)
 
     def update(self):
-        self.rect.x = self.parent.x
-        self.rect.y = self.parent.y
+        self.rect.x = self.parent.rect.x
+        self.rect.y = self.parent.rect.y
+        for el in self.ingridients:
+            el.rect.x = self.parent.rect.x
+            el.rect.y = self.parent.rect.y
