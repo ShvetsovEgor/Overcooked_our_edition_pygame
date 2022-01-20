@@ -4,6 +4,24 @@ from load_image import load_image
 allsprites = pygame.sprite.Group
 
 
+class Checker(pygame.sprite.Sprite):
+    def __init__(self, x, y, allsprites, parent, obstacle, put_able, cell_size=50):
+        super().__init__(allsprites, obstacle, put_able)
+        self.parent = parent
+        self.image = pygame.transform.scale(load_image("conveyer.jpg"), (cell_size, cell_size))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.result = {}
+
+    def check(self, plate):
+        for el in self.parent.dishes:
+            if plate == el:
+                self.result[el] = 1
+
+
+
+
 class Floor(pygame.sprite.Sprite):
     def __init__(self, x, y, allsprites, cell_size=50):
         super(Floor, self).__init__(allsprites)

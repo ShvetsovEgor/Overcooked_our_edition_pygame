@@ -61,7 +61,7 @@ class Plate(pygame.sprite.Sprite):
     def __init__(self, parent, allsprites, plategroup, foodgroup, put_able):
         super().__init__(allsprites, plategroup, foodgroup, put_able)
         self.parent = parent
-        self.image = pygame.transform.scale(load_image("01_dish.png"), (50, 50))
+        self.image = pygame.transform.scale(load_image("02_dish_2.png"), (50, 50))
         self.rect = self.image.get_rect()
         self.clear = True
         self.ingridients = []
