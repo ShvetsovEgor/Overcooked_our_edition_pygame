@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="efed66b3-1ce8-43f2-aa25-1d8ca2329b0f" name="Changes" comment="19.01.22" />
+    <list default="true" id="efed66b3-1ce8-43f2-aa25-1d8ca2329b0f" name="Changes" comment="19.01.22">
+      <change beforePath="$PROJECT_DIR$/.idea/Pygame-overcooked.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Pygame-overcooked.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_01_2022_22_55_[Changes]/97_sush.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_01_2022_22_55_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_01_2022_22_55__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_01_2022_16_15__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_01_2022_16_15__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_01_2022_23_07__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_01_2022_23_07__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/box.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/box.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/fridge_opened.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/fried_potato.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/food.py" beforeDir="false" afterPath="$PROJECT_DIR$/food.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gameplay.py" beforeDir="false" afterPath="$PROJECT_DIR$/gameplay.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/level_history.db" beforeDir="false" afterPath="$PROJECT_DIR$/level_history.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/levels/level1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/levels/level1.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/levels/level2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/levels/level2.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/levels/Руководство по заполнению уровней.txt" beforeDir="false" afterPath="$PROJECT_DIR$/levels/Руководство по заполнению уровней.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/players.py" beforeDir="false" afterPath="$PROJECT_DIR$/players.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,7 +48,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Python.gameplay">
+  <component name="RunManager" selected="Python.main">
     <configuration name="dishes" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pygame-overcooked-2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -135,9 +156,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.players" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.gameplay" />
+        <item itemvalue="Python.players" />
         <item itemvalue="Python.food" />
         <item itemvalue="Python.dishes" />
       </list>

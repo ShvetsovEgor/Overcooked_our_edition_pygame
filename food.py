@@ -48,9 +48,9 @@ class Food(pygame.sprite.Sprite):
         self.rect.x = self.parent.rect.x
         self.rect.y = self.parent.rect.y
 
-    def change_pic(self):
+    def change_pic(self, cell_size):
         if self.sliced:
-            self.image = load_image(visual_food[self.title][1])
+            self.image = pygame.transform.scale(load_image(visual_food[self.title][1]), (cell_size, cell_size))
             x, y, width, height = self.image.get_rect()
             self.rect = self.image.get_rect()
             self.rect.x = self.parent.rect.x
@@ -64,7 +64,7 @@ class Plate(pygame.sprite.Sprite):
     def __init__(self, parent, allsprites, plategroup):
         super().__init__(allsprites, plategroup)
         self.parent = parent
-        self.image = load_image("red.png")
+        self.image = load_image("01_dish.png")
         self.rect = self.image.get_rect()
         self.clear = True
         self.ingridients = []
@@ -87,5 +87,5 @@ class Plate(pygame.sprite.Sprite):
         return id(self)
 
     def update(self):
-        self.rect.x = self.parent.x
-        self.rect.y = self.parent.y
+        self.rect.x = self.parent.rect.x
+        self.rect.y = self.parent.rect.y

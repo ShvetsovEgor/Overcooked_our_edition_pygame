@@ -17,14 +17,13 @@ class GamePlayScene:
         self.playersgroup = pygame.sprite.Group()
         self.allsprites = pygame.sprite.Group()
         self.foodgroup = pygame.sprite.Group()
+        self.plategroup = pygame.sprite.Group()
         self.parent = parent
         self.width = self.parent.width
         self.height = self.parent.height
         self.screen = screen
         self.filename = f"levels/level{filenumber}.csv"
         self.filenumber = filenumber
-        self.f1 = 0
-        self.f2 = 0
         self.first_time = datetime.datetime.now()
 
         self.load_level()
@@ -39,17 +38,7 @@ class GamePlayScene:
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        print(self.f1)  # горячие клавиши
-                        if not self.f1:
-
-                            self.f1 = 1
-                            self.sprite = self.first_player.find(self.foodgroup)[1]
-
-                        elif self.f1 == 1:
-                            self.first_player.put(self.obstacle, self.sprite)
-                            self.f1 = 0
-                            self.sprite = None
-
+                        self.first_player.find(self.foodgroup, self.obstacle)
                     elif event.key == pygame.K_e:
                         self.second_player.find(self.foodgroup)
             if self.running:
@@ -61,10 +50,12 @@ class GamePlayScene:
                 self.allsprites.draw(self.screen)
                 self.obstacle.draw(self.screen)
                 self.foodgroup.draw(self.screen)
-
+                self.plategroup.draw(self.screen)
+                self.plategroup.update()
                 self.playersgroup.draw(self.screen)
                 self.playersgroup.update(self.obstacle)
                 self.foodgroup.update()
+                print(self.plategroup)
                 screen.blit(text, (width - 300, 50))
                 clock.tick(FPS)
                 pygame.display.flip()
@@ -103,34 +94,34 @@ class GamePlayScene:
                 if self.board[y][x] == '.':
                     Floor(vect_x, vect_y, self.allsprites, self.cell_size)
                     floors += [(vect_x, vect_y)]
-                elif self.board[y][x] == '#':
+                elif self.board[y][x][0] == '#':
                     Wall(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
-                elif self.board[y][x] == 'f':
+                elif self.board[y][x][0] == 'f':
                     Fridge(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
-                elif self.board[y][x] == 'o':
+                elif self.board[y][x][0] == 'o':
                     Oven(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
-                elif self.board[y][x] == 'k':
+                elif self.board[y][x][0] == 'k':
                     Knife(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
-                elif self.board[y][x] == 's':
+                elif self.board[y][x][0] == 's':
                     Sink(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
-                elif self.board[y][x] == 'b':
+                elif self.board[y][x][0] == 'b':
                     parent = Box(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
                     for title in self.ingridients["Box"]:
                         f = Food(title, parent, self.allsprites, self.foodgroup)
                         f.image = pygame.transform.scale(f.image, (self.cell_size, self.cell_size))
-
-
-                elif self.board[y][x] == 't':
-                    Table(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
+                elif self.board[y][x][0] == 't':
+                    t = Table(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
+                    if len(self.board[y][x]) == 2 and self.board[y][x][1] == "p":
+                        Plate(t, self.allsprites, self.plategroup)
                 # Декодировка символов в классы
 
         self.rows = x
         self.cols = y
 
         if self.parent.kol == 2:
-            x, y = choice(floors)  # вопрос
+            x, y = choice(floors)
             self.first_player = Player(x, y, self.playersgroup, self.allsprites, self.cell_size)
             self.second_player = SecondPlayer(x, y, self.playersgroup, self.allsprites)
         elif self.parent.kol == 1:
-            x, y = choice(floors)   # вопрос
+            x, y = choice(floors)
             self.first_player = Player(x, y, self.playersgroup, self.allsprites, self.cell_size - 5)

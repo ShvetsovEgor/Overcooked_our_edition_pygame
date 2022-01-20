@@ -64,5 +64,5 @@ class HelloScene:  # После нажатия любой клавиши дол�
 
 
 if __name__ == '__main__':
-    pygame.display.set_caption("")
+    pygame.display.set_caption("Overcooked - our edition")
     scene = HelloScene(width, height)
