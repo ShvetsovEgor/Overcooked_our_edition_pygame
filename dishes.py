@@ -9,13 +9,14 @@ screen = pygame.display.set_mode(size)
 allsprites = pygame.sprite.Group()
 platesgroup = pygame.sprite.Group()
 foodgroup = pygame.sprite.Group()
+put_able = pygame.sprite.Group()
 parent = None
 
 # Pizza = Plate(parent, allsprites, platesgroup)
 # Pizza += [Food("Тесто", Pizza, allsprites, foodgroup), Food("Томат", Pizza, allsprites, foodgroup, sliced=True),
 #           Food('Сыр', Pizza, allsprites, foodgroup, sliced=True)]
 
-Salad = Plate(parent, allsprites, platesgroup)
+Salad = Plate(parent, allsprites, platesgroup, foodgroup, put_able)
 Salad += [Food("Томат", Salad, allsprites, foodgroup, sliced=True),
           Food("Огурец", Salad, allsprites, foodgroup, sliced=True)]
 
