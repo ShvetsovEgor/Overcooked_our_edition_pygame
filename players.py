@@ -1,4 +1,7 @@
 import pygame.sprite
+
+import food
+import interier
 from load_image import load_image
 from food import Food
 
@@ -22,7 +25,6 @@ class Player(pygame.sprite.Sprite):
         # предмет в руках
         self.object = False
 
-
     def cut_sheet(self, sheet, columns, rows):
         self.rect = pygame.Rect(0, 0, sheet.get_width() // columns,
                                 sheet.get_height() // rows)
@@ -32,7 +34,7 @@ class Player(pygame.sprite.Sprite):
                 self.frames.append(sheet.subsurface(pygame.Rect(
                     frame_location, self.rect.size)))
 
-    def find(self, foodgroup, put_able, plategroup):
+    def find(self, foodgroup, put_able):
         # горячие клавиши
         x, y = self.rect.x, self.rect.y
         if not self.object:
@@ -48,8 +50,9 @@ class Player(pygame.sprite.Sprite):
             elif self.direction == "L":
                 self.rect.x -= self.cell_size
                 sprite = pygame.sprite.spritecollide(self, foodgroup, False)
+            print("Берем>", sprite)
             if sprite:
-                plates = [x for x in sprite if "Plate" in str(x)]
+                plates = [x for x in sprite if type(x) == food.Plate]
                 if plates:
                     plates[-1].parent = self
                     self.object = plates[-1]
@@ -70,40 +73,36 @@ class Player(pygame.sprite.Sprite):
             elif self.direction == "L":
                 self.rect.x -= self.cell_size
                 sprites = pygame.sprite.spritecollide(self, put_able, False)
+            print("Кладем на", sprites)
+            plates = [x for x in sprites if type(x) == food.Plate]
 
-            if sprites and 'Floor' not in str(sprites[-1]) and "Wall" not in str(sprites[-1]):
-                print(sprites, 'PLATES 1')
-
-                plates = [x for x in sprites if "Plate" in str(x)]
-                print(plates, 'PLATES')
-
-                if plates:
-                    self.object.image = pygame.transform.scale(self.object.image,
-                                                               (plates[-1].image.get_width(),
-                                                                plates[-1].image.get_height()))
-                    self.object.rect = self.object.image.get_rect()
-                    plates[-1] += [self.object]
-                    self.object.parent = plates[-1]
-                if "Checker" in str(sprites[-1]):
+            if plates:
+                self.object.image = pygame.transform.scale(self.object.image,
+                                                           (plates[-1].image.get_width(),
+                                                            plates[-1].image.get_height()))
+                self.object.rect = self.object.image.get_rect()
+                plates[-1] += [self.object]
+                self.object.parent = plates[-1]
+                if type(plates[-1]) == interier.Checker:
                     self.object.parent = sprites[-1]
-
+                    plates[-1].check(self.object)
+                self.object = False
+            elif sprites:
+                self.object.parent = sprites[-1]
+                if type(sprites[-1]) == interier.Checker:
                     sprites[-1].check(self.object)
-                    self.object = False
+                if type(sprites[-1]) == interier.Knife:
+                    print(self.object)
 
-                else:
-                    self.object.parent = sprites[-1]
-                    if "Checker" in str(sprites[-1]):
-                        sprites[-1].check(self.object)
-                    if "Knife" in str(sprites[-1]):
-                        print(self.object)
+                    if type(self.object) == food.Food:
                         self.object.sliced = True
                         self.object.change_pic(self.cell_size)
-
-                    # elif "Table" in str(sprites[-1]) and self.object.sliced:
-                    #     self.object.place = True
-                    #     sprite.checkout()
-                    #     self.object = False
                 self.object = False
+                # elif "Table" in str(sprites[-1]) and self.object.sliced:
+                #     self.object.place = True
+                #     sprite.checkout()
+                #     self.object = False
+
         self.rect.x, self.rect.y = x, y
 
     def update(self, obstacle, foodgroup=None, plategroup=None):

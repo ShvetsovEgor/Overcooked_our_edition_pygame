@@ -12,23 +12,26 @@ class Checker(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.result = {}
+
+        print("Словарь блюд:", self.parent.dishes)
+        for el in self.parent.dishes:
+            self.parent.result[el] = False
+        print(self.parent.result)
 
     def check(self, obj):
+
+        print(self.parent.result)
         print("Ваша тарелка")
         for el in obj.ingridients:
             print(el.title, el.sliced)
         print("По рецепту")
-        print(self.parent.dishes)
-        for elem in self.parent.dishes:
-
-            for el in elem.ingridients:
-                print(el.title, el.sliced)
-            if obj == el:
-                self.result[el] = 1
-        if all(self.result.values()):
-            self.parent.show_result(len([x for x in self.result.values() if x]))
-            print('you won')
+        print([type(x) for x in self.parent.dishes])
+        for elem in self.parent.result:
+            if obj == elem:
+                self.parent.result[elem] = True
+                print("+1")
+        if all(self.parent.result.values()):
+            self.parent.show_result()
 
 
 class Floor(pygame.sprite.Sprite):
@@ -99,8 +102,8 @@ class Sink(pygame.sprite.Sprite):
 
 
 class Box(pygame.sprite.Sprite):
-    def __init__(self, x, y, allsprites, obstacle, cell_size=50):
-        super().__init__(allsprites, obstacle)
+    def __init__(self, x, y, allsprites, obstacle, put_able, cell_size=50):
+        super().__init__(allsprites, obstacle, put_able)
         self.image = load_image("box.png")
         width, height = self.image.get_rect().size
         k = width / cell_size

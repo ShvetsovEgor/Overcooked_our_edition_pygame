@@ -71,11 +71,12 @@ class Plate(pygame.sprite.Sprite):
         self.ingridients = []
 
     def __eq__(self, other):
-        other.ingridients = other.ingridients[0]
+        # if set(self.ingridients) == set(other.ingridients):
+        #     return True                  #требовалось хеширование
+        print("СРАВНЕНИЕ")
         print(other.ingridients, 'other')
         print(self.ingridients, 'self')
-        # if set(self.ingridients) == set(other.ingridients):
-        #     return True                  требовалось хеширование
+
         for el in other.ingridients:
             if el not in self.ingridients:
                 return False
