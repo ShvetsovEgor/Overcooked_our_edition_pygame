@@ -1,8 +1,8 @@
 import pygame
 
-from load_image import load_image
 from button import Button
 from levelchoose import LevelChoose
+from load_image import load_image
 
 FPS = 50
 pygame.init()

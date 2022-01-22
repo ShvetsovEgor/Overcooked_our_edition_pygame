@@ -1,9 +1,10 @@
 import sqlite3
+
 import pygame
-from load_image import load_image
-from players import Player, SecondPlayer
-from level_platform import LevelPlatform
+
 from gameplay import GamePlayScene
+from level_platform import LevelPlatform
+from players import Player, SecondPlayer
 
 
 class Camera:
@@ -83,8 +84,8 @@ class LevelChoose:
                 for el in self.platformgroup:
                     level_number = el.update(self.playersgroup)
                     if level_number is not None:
-                         GamePlayScene(self, level_number, self.screen)
-                         self.running = False
+                        GamePlayScene(self, level_number, self.screen)
+                        self.running = False
 
                 self.platformgroup.draw(self.screen)
                 self.playersgroup.draw(self.screen)

@@ -3,7 +3,7 @@ import pygame
 from load_image import load_image
 
 visual_food = {"Название": ["Нормальное состояние", "Нарезанное состояние", "Сваренное состояние", "Жареное состояние"],
-               "Мясо": ["meat.png"],
+               "Мясо": ["meat.png", '', '95_steak.png'],
                'Томат': ['tomato.png', 'sliced_tomato.png'],
                "Огурец": ['cucumber.png', 'sliced_cucumber.png'],
                "Картофель": ['tomato.png', 'sliced_tomato.png', 'fried_potato.png'],
@@ -52,10 +52,12 @@ class Food(pygame.sprite.Sprite):
     def change_pic(self, cell_size):
         if self.sliced:
             self.image = pygame.transform.scale(load_image(visual_food[self.title][1]), (cell_size, cell_size))
-            x, y, width, height = self.image.get_rect()
-            self.rect = self.image.get_rect()
-            self.rect.x = self.parent.rect.x
-            self.rect.y = self.parent.rect.y
+        if self.boiled:
+            self.image = pygame.transform.scale(load_image(visual_food[self.title][2]), (cell_size, cell_size))
+        x, y, width, height = self.image.get_rect()
+        self.rect = self.image.get_rect()
+        self.rect.x = self.parent.rect.x
+        self.rect.y = self.parent.rect.y
 
 
 plategroup = pygame.sprite.Group()

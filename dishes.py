@@ -1,5 +1,6 @@
-from food import Plate, Food
 import pygame
+
+from food import Plate, Food
 
 pygame.init()
 infoObject = pygame.display.Info()
