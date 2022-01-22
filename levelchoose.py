@@ -68,11 +68,12 @@ class LevelChoose:
         clock = pygame.time.Clock()
         camera = Camera(self.parent.width, self.parent.height)
         while self.running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-                    self.parent.running = False
-            if self.running:
+            try:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        self.running = False
+                        self.parent.running = False
+
                 self.screen.fill((0, 0, 255))
                 camera.update(self.obj)
                 for el in self.allsprites:
@@ -82,10 +83,14 @@ class LevelChoose:
                 for el in self.platformgroup:
                     level_number = el.update(self.playersgroup)
                     if level_number is not None:
-                        GamePlayScene(self, level_number, self.screen)
+                         GamePlayScene(self, level_number, self.screen)
+                         self.running = False
 
                 self.platformgroup.draw(self.screen)
                 self.playersgroup.draw(self.screen)
                 pygame.display.flip()
                 clock.tick(FPS)
+            except Exception:
+                print("Выход из цикла выбора уровня")
+                pygame.quit()
         pygame.quit()

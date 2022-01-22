@@ -15,19 +15,20 @@ class Checker(pygame.sprite.Sprite):
         self.result = {}
 
     def check(self, obj):
+        print("Ваша тарелка")
+        for el in obj.ingridients:
 
-        print(obj.ingridients, 'kk')
-
-
-        for el in self.parent.dishes:
-            print(el.ingridients, 'ingridients')
+            print(el.title, el.sliced)
+        print("По рецепту")
+        for elem in self.parent.dishes:
+            print(elem.ingridients)
+            for el in elem.ingridients:
+                print(el.title, el.sliced)
             if obj == el:
                 self.result[el] = 1
         if all(self.result.values()):
+            self.parent.show_result(len([x for x in self.result.values() if x]))
             print('you won')
-
-
-
 
 
 class Floor(pygame.sprite.Sprite):
