@@ -17,11 +17,11 @@ class Checker(pygame.sprite.Sprite):
     def check(self, obj):
         print("Ваша тарелка")
         for el in obj.ingridients:
-
             print(el.title, el.sliced)
         print("По рецепту")
+        print(self.parent.dishes)
         for elem in self.parent.dishes:
-            print(elem.ingridients)
+
             for el in elem.ingridients:
                 print(el.title, el.sliced)
             if obj == el:

@@ -39,6 +39,9 @@ class Food(pygame.sprite.Sprite):
             return True
         return False
 
+    def __repr__(self):
+        return self.title
+
     def __hash__(self):
         return id(self)
 
@@ -82,8 +85,12 @@ class Plate(pygame.sprite.Sprite):
         return True
 
     def __iadd__(self, other):
-        self.ingridients += [other]
+        self.ingridients += other
+        print(self.ingridients)
         return self
+
+    def __repr__(self):
+        return " ".join([str(x) for x in self.ingridients])
 
     def __hash__(self):
         return id(self)

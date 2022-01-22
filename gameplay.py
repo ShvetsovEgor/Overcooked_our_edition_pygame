@@ -50,15 +50,21 @@ class GamePlayScene:
                 self.plategroup.update()
                 self.plategroup.draw(self.screen)
 
-
                 self.foodgroup.update()
                 self.foodgroup.draw(self.screen)
 
                 self.playersgroup.update(self.obstacle)
                 self.playersgroup.draw(self.screen)
+                lines = []
+                for el in self.titles:
+                    lines += [el + ":"]
+                    lines += str(globals()[el]).split()
+                print(lines)
+                for i, el in enumerate(lines):
+                    screen.blit(font.render(el, True, (100, 255, 100)),
+                                (self.width - self.border_x, 100 + 50 * i))
 
-                screen.blit(font.render(" ".join(self.titles), True, (100, 255, 100)), (self.width - self.border_x, 100))
-                screen.blit(text, (self.width - self.border_x, 50))
+                screen.blit(text, (self.width - self.border_x, 50))  # таймер
                 clock.tick(FPS)
                 pygame.display.flip()
             except Exception as e:
@@ -145,7 +151,8 @@ class GamePlayScene:
         print("Showing")
         pygame.draw.rect(self.screen, "red", (self.border_x, self.border_y, self.width, self.height))
         font = pygame.font.Font(None, 100)
-        string_rendered = font.render(f"Поздравляем, ваш результат {result}/{len(self.dishes)}", 1, pygame.Color('white'))
+        string_rendered = font.render(f"Поздравляем, ваш результат {result}/{len(self.dishes)}", 1,
+                                      pygame.Color('white'))
         intro_rect = string_rendered.get_rect()
         intro_rect.y = self.border_y
         intro_rect.x = self.border_x

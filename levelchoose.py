@@ -90,7 +90,9 @@ class LevelChoose:
                 self.playersgroup.draw(self.screen)
                 pygame.display.flip()
                 clock.tick(FPS)
-            except Exception:
+            except Exception as e:
+                self.running = False
+                print(e)
                 print("Выход из цикла выбора уровня")
                 pygame.quit()
         pygame.quit()

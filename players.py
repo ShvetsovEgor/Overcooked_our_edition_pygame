@@ -82,7 +82,7 @@ class Player(pygame.sprite.Sprite):
                                                                (plates[-1].image.get_width(),
                                                                 plates[-1].image.get_height()))
                     self.object.rect = self.object.image.get_rect()
-                    plates[-1] += self.object
+                    plates[-1] += [self.object]
                     self.object.parent = plates[-1]
                 if "Checker" in str(sprites[-1]):
                     self.object.parent = sprites[-1]
