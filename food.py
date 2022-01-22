@@ -15,7 +15,8 @@ visual_food = {"Название": ["Нормальное состояние", "
 # надо заполнить
 
 class Food(pygame.sprite.Sprite):
-    def __init__(self, title, parent, allsprites, foodgroup, sliced=False, boiled=False, fried=False, shaked=False, place=False):
+    def __init__(self, title, parent, allsprites, foodgroup, sliced=False, boiled=False, fried=False, shaked=False,
+                 place=False):
         super().__init__(allsprites, foodgroup)
         self.image = load_image(visual_food[title][0])  # загружаем фото которое соответсвует названию еды
         self.parent = parent  # запоминаем к какому объекту еда прикреплена
@@ -37,6 +38,9 @@ class Food(pygame.sprite.Sprite):
                 self.boiled == other.boiled and self.fried == other.fried and self.shaked == other.shaked:
             return True
         return False
+
+    def __repr__(self):
+        return self.title
 
     def __hash__(self):
         return id(self)
@@ -68,17 +72,26 @@ class Plate(pygame.sprite.Sprite):
 
     def __eq__(self, other):
         # if set(self.ingridients) == set(other.ingridients):
-        #     return True                  требовалось хеширование
+        #     return True                  #требовалось хеширование
+        print("СРАВНЕНИЕ")
+        print(other.ingridients, 'other')
+        print(self.ingridients, 'self')
+
         for el in other.ingridients:
             if el not in self.ingridients:
                 return False
         if len(self.ingridients) != len(other.ingridients):
             return False
+        print('true')
         return True
 
     def __iadd__(self, other):
-        self.ingridients += [other]
+        self.ingridients += other
+        print(self.ingridients)
         return self
+
+    def __repr__(self):
+        return " ".join([str(x) for x in self.ingridients])
 
     def __hash__(self):
         return id(self)
@@ -89,5 +102,3 @@ class Plate(pygame.sprite.Sprite):
         for el in self.ingridients:
             el.rect.x = self.parent.rect.x
             el.rect.y = self.parent.rect.y
-
-

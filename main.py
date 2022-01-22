@@ -25,22 +25,28 @@ class HelloScene:  # После нажатия любой клавиши дол�
         self.text()
         clock = pygame.time.Clock()
         while self.running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-                if event.type == pygame.KEYDOWN:
-                    screen.fill("red")
-                    Button(screen, width // 2 - 200, height // 2, self.buttongroup, "1P", "white")
-                    Button(screen, width // 2 + 200, height // 2, self.buttongroup, "2P", "white")
-                for el in self.buttongroup:
-                    reaction = el.update(event)
-                    if reaction == "1P":
-                        LevelChoose(self, screen, 1)
-                    elif reaction == "2P":
-                        LevelChoose(self, screen, 2)
-            if self.running:
-                clock.tick(FPS)
-                pygame.display.flip()
+            try:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        self.running = False
+                    if event.type == pygame.KEYDOWN:
+                        screen.fill("red")
+                        Button(screen, width // 2 - 200, height // 2, self.buttongroup, "1P", "white")
+                        Button(screen, width // 2 + 200, height // 2, self.buttongroup, "2P", "white")
+                    for el in self.buttongroup:
+                        reaction = el.update(event)
+                        if reaction == "1P":
+                            LevelChoose(self, screen, 1)
+                            self.running = False
+                        elif reaction == "2P":
+                            LevelChoose(self, screen, 2)
+                            self.running = False
+
+                    clock.tick(FPS)
+                    pygame.display.flip()
+            except Exception:
+                print("Завершение работы приложения")
+                pygame.quit()
         pygame.quit()
 
     def fon(self):
