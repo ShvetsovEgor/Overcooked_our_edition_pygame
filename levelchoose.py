@@ -1,7 +1,7 @@
 import sqlite3
 
 import pygame
-
+from pygame import mixer
 from gameplay import GamePlayScene
 from level_platform import LevelPlatform
 from players import Player, SecondPlayer
@@ -36,6 +36,7 @@ class LevelChoose:
         self.width = self.parent.width
         self.height = self.parent.height
         self.screen = screen
+        self.button_sound = mixer.Sound('sounds/button.mp3')
         self.kol = kl
         con = sqlite3.connect("level_history.db")
         cur = con.cursor()

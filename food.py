@@ -4,8 +4,8 @@ from load_image import load_image
 
 visual_food = {"Название": ["Нормальное состояние", "Нарезанное состояние", "Сваренное состояние", "Жареное состояние"],
                "Мясо": ["meat.png", '', '95_steak.png'],
-               'Томат': ['tomato.png', 'sliced_tomato.png'],
-               "Огурец": ['cucumber.png', 'sliced_cucumber.png'],
+               'Томат': ['tomato.png', 'rounded-texture-tomato.png'],
+               "Огурец": ['cucumber.png', 'ronded-texture-cucumber.png'],
                "Картофель": ['tomato.png', 'sliced_tomato.png', 'fried_potato.png'],
                "Морковь": ['carrot.png', 'sliced_carrot.png'],
                'Салат': ['salad.png']}

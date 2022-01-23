@@ -1,5 +1,5 @@
 import pygame
-
+from pygame import mixer
 from button import Button
 from levelchoose import LevelChoose
 from load_image import load_image
@@ -16,7 +16,9 @@ class HelloScene:  # После нажатия любой клавиши дол�
     # пересечении со спрайтом плитки уровня
     def __init__(self, width, height):
         self.buttongroup = pygame.sprite.Group()
-
+        self.button_sound = mixer.Sound('sounds/button.mp3')
+        mixer.music.load('sounds/main_music.mp3')
+        mixer.music.play()
         FPS = 100
         self.running = True
         self.width = width
@@ -30,16 +32,25 @@ class HelloScene:  # После нажатия любой клавиши дол�
                     if event.type == pygame.QUIT:
                         self.running = False
                     if event.type == pygame.KEYDOWN:
-                        screen.fill("red")
-                        Button(screen, width // 2 - 200, height // 2, self.buttongroup, "1P", "white")
-                        Button(screen, width // 2 + 200, height // 2, self.buttongroup, "2P", "white")
+                        if event.key == pygame.K_ESCAPE:
+                            self.running = False
+                        else:
+                            screen.fill("red")
+                            Button(screen, width // 2 - 200, height // 2, self.buttongroup, "1P", "white")
+                            Button(screen, width // 2 + 200, height // 2, self.buttongroup, "2P", "white")
                     for el in self.buttongroup:
                         reaction = el.update(event)
                         if reaction == "1P":
+                            self.button_sound.play()
+                            mixer.music.set_volume(0.5)
                             LevelChoose(self, screen, 1)
+
                             self.running = False
                         elif reaction == "2P":
+                            self.button_sound.play()
+                            mixer.music.set_volume(0.5)
                             LevelChoose(self, screen, 2)
+
                             self.running = False
 
                     clock.tick(FPS)

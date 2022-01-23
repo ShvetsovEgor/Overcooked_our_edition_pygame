@@ -4,6 +4,7 @@ import sqlite3
 from random import choice
 
 import pygame.sprite
+from pygame import mixer
 
 from dishes import *
 from interier import Floor, Wall, Fridge, Oven, Knife, Sink, Box, Table, Checker
@@ -28,8 +29,11 @@ class GamePlayScene:
         self.result = {}
         self.load_level()
         self.running = True
+        mixer.music.load('sounds/gameplay.mp3')
+        mixer.music.play()
         FPS = 60
         clock = pygame.time.Clock()
+        countdown = True
         while self.running:
             try:
                 for event in pygame.event.get():
@@ -45,8 +49,11 @@ class GamePlayScene:
                             self.second_player.find(self.foodgroup, self.put_able)
 
                 font = pygame.font.Font(None, 50)
+                if countdown and datetime.datetime.now() - self.first_time > datetime.timedelta(seconds=self.time - 11):
+                    countdown = False
+                    mixer.music.load('sounds/countdown.mp3')
+                    mixer.music.play()
                 if datetime.datetime.now() - self.first_time > datetime.timedelta(seconds=self.time):
-                    # print("TIMES UP")
                     self.show_result()
                 else:
                     text = font.render(str(datetime.datetime.now() - self.first_time), True, (100, 255, 100))

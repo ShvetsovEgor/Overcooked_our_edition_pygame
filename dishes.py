@@ -26,7 +26,7 @@ Salad += [Food("Томат", Salad, allsprites, foodgroup, sliced=True),
 #          Food('Мясо', Soup, allsprites, foodgroup, sliced=True, boiled=True),
 #          Food('Грибы', Soup, foodgroup, allsprites, sliced=True)]
 Soup = Plate(parent, allsprites, platesgroup, foodgroup, put_able)
-Soup += [Food('Мясо', Soup, allsprites, foodgroup, sliced=True, boiled=True)]
+Soup += [Food('Мясо', Soup, allsprites, foodgroup, sliced=False, boiled=True)]
 # Burger = Plate(parent, allsprites, platesgroup)
 # Burger += [Food('Хлеб', Burger, allsprites, foodgroup),
 #            Food('Мясо', Burger, allsprites, foodgroup, sliced=True, fried=True),
