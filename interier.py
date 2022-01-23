@@ -23,18 +23,21 @@ class Checker(pygame.sprite.Sprite):
 
         print(self.parent.result)
         print("Ваша тарелка")
-        for el in obj.ingridients:
-            print(el.title, el.boiled)
-        print("По рецепту")
+        try:
+            for el in obj.ingridients:
+                print(el.title, el.boiled)
+            print("По рецепту")
 
-        for elem in self.parent.result:
-            if obj == elem:
-                self.parent.result[elem] = True
-                print("+1")
-            else:
-                print("wrong")
-        if all(self.parent.result.values()):
-            self.parent.show_result()
+            for elem in self.parent.result:
+                if obj == elem:
+                    self.parent.result[elem] = True
+                    print("+1")
+                else:
+                    print("wrong")
+            if all(self.parent.result.values()):
+                self.parent.show_result()
+        except Exception:
+            pass
 
 
 class Floor(pygame.sprite.Sprite):

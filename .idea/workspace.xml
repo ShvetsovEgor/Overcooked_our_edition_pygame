@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="efed66b3-1ce8-43f2-aa25-1d8ca2329b0f" name="Changes" comment="Звуки">
+    <list default="true" id="efed66b3-1ce8-43f2-aa25-1d8ca2329b0f" name="Changes" comment="Тарелки хранят в себе продукты">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/red.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/red.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gameplay.py" beforeDir="false" afterPath="$PROJECT_DIR$/gameplay.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interier.py" beforeDir="false" afterPath="$PROJECT_DIR$/interier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/level_history.db" beforeDir="false" afterPath="$PROJECT_DIR$/level_history.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/levelchoose.py" beforeDir="false" afterPath="$PROJECT_DIR$/levelchoose.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/levels/level2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/levels/level2.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/players.py" beforeDir="false" afterPath="$PROJECT_DIR$/players.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -215,16 +219,5 @@
     <MESSAGE value="Описание заказа" />
     <MESSAGE value="Звуки" />
     <option name="LAST_COMMIT_MESSAGE" value="Звуки" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/gameplay.py</url>
-          <line>41</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

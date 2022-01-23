@@ -35,57 +35,56 @@ class GamePlayScene:
         clock = pygame.time.Clock()
         countdown = True
         while self.running:
-            try:
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        self.running = False
-                        self.parent.running = False
+            # try:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+                    self.parent.running = False
 
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_SPACE:
-                            self.first_player.find(self.foodgroup, self.put_able)
-                            print(self.put_able)
-                        elif event.key == pygame.K_e:
-                            self.second_player.find(self.foodgroup, self.put_able)
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        self.first_player.find(self.foodgroup, self.put_able)
+                    elif event.key == pygame.K_e:
+                        self.second_player.find(self.foodgroup, self.put_able)
 
-                font = pygame.font.Font(None, 50)
-                if countdown and datetime.datetime.now() - self.first_time > datetime.timedelta(seconds=self.time - 11):
-                    countdown = False
-                    mixer.music.load('sounds/countdown.mp3')
-                    mixer.music.play()
-                if datetime.datetime.now() - self.first_time > datetime.timedelta(seconds=self.time):
-                    self.show_result()
-                else:
-                    text = font.render(str(datetime.datetime.now() - self.first_time), True, (100, 255, 100))
+            font = pygame.font.Font(None, 50)
+            if countdown and datetime.datetime.now() - self.first_time > datetime.timedelta(seconds=self.time - 11):
+                countdown = False
+                mixer.music.load('sounds/countdown.mp3')
+                mixer.music.play()
+            if datetime.datetime.now() - self.first_time > datetime.timedelta(seconds=self.time):
+                self.show_result()
+            else:
+                text = font.render(
+                    str(self.first_time + datetime.timedelta(seconds=self.time) - datetime.datetime.now()), True,
+                    (100, 255, 100))
 
-                self.screen.fill("white")
+            self.screen.fill("white")
 
-                self.allsprites.draw(self.screen)
-                self.plategroup.update()
-                self.plategroup.draw(self.screen)
+            self.allsprites.draw(self.screen)
+            self.plategroup.update()
+            self.plategroup.draw(self.screen)
 
-                self.foodgroup.update()
-                self.foodgroup.draw(self.screen)
+            self.foodgroup.update()
+            self.foodgroup.draw(self.screen)
 
-                self.playersgroup.update(self.obstacle)
-                self.playersgroup.draw(self.screen)
-                lines = []
-                for el in self.titles:
-                    lines += [el + ":"]
-                    lines += str(globals()[el]).split()
-                for i, el in enumerate(lines):
-                    screen.blit(font.render(el, True, (100, 255, 100)),
-                                (self.width - self.border_x, 100 + 50 * i))
+            self.playersgroup.update(self.obstacle)
+            self.playersgroup.draw(self.screen)
+            lines = []
+            for el in self.titles:
+                lines += [el + ":"]
+                lines += str(globals()[el]).split()
+            for i, el in enumerate(lines):
+                screen.blit(font.render(el, True, (100, 255, 100)),
+                            (self.width - self.border_x, 100 + 50 * i))
 
-                screen.blit(text, (self.width - self.border_x, 50))  # таймер
-                clock.tick(FPS)
-                pygame.display.flip()
-            except Exception as e:
-                self.running = False
-                print(e)
-                print("Выход из цикла игры")
-                pygame.quit()
-        pygame.quit()
+            screen.blit(text, (self.width - self.border_x, 50))  # таймер
+            clock.tick(FPS)
+            pygame.display.flip()
+        # except Exception as e:
+        #     self.running = False
+        #     print(e)
+        #     print("Выход из цикла игры")
 
     def load_level(self):
         with open(self.filename, encoding="utf8") as csvfile:
@@ -165,24 +164,34 @@ class GamePlayScene:
             self.first_player = Player(x, y, self.playersgroup, self.allsprites, self.cell_size - 5)
 
     def show_result(self):
-        cnt, mx = len([x for x in self.result.values() if x]), len(self.result.values())
-        print(f"result {cnt} of {mx}")
-        clock = pygame.time.Clock()
-        self.running = True
-        while self.running:
-            for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        self.running = False
-                    if event.type == pygame.KEYDOWN:
-                        screen.fill("red")
-            print("Showing")
-            self.screen.fill(pygame.Color('white'))
-            pygame.draw.rect(self.screen, "red", (self.border_x, self.border_y, self.width, self.height))
-            font = pygame.font.Font(None, 100)
-            string_rendered = font.render(f"Поздравляем, ваш результат {cnt}/{mx}", 1,
-                                              pygame.Color('white'))
-            intro_rect = string_rendered.get_rect()
-            intro_rect.y = self.border_y
-            intro_rect.x = self.border_x
-            self.screen.blit(string_rendered, intro_rect)
-            clock.tick(60)
+        self.running = False
+        # pygame.quit()
+        # self.running = False
+        # FPS = 50
+        # pygame.init()
+        # infoObject = pygame.display.Info()
+        # size = width, height = (infoObject.current_w - 50, infoObject.current_h - 50)
+        # screen = pygame.display.set_mode(size)
+        # screen.fill(pygame.Color('white'))
+        # cnt, mx = len([x for x in self.result.values() if x]), len(self.result.values())
+        # print(f"result {cnt} of {mx}")
+        #
+        # clock = pygame.time.Clock()
+        # running = True
+        # while running:
+        #     for event in pygame.event.get():
+        #         if event.type == pygame.QUIT:
+        #             running = False
+        #         if event.type == pygame.KEYDOWN:
+        #             running = False
+        #     pygame.display.flip()
+        #
+        #     pygame.draw.rect(screen, "red", (0, 0, width, height))
+        #     font = pygame.font.Font(None, 60)
+        #     string_rendered = font.render(f"Поздравляем, ваш результат {cnt}/{mx}", 1,
+        #                                   pygame.Color('white'))
+        #     intro_rect = string_rendered.get_rect()
+        #     intro_rect.y = self.border_y + 200
+        #     intro_rect.x = self.border_x
+        #     screen.blit(string_rendered, intro_rect)
+        #     clock.tick(60)

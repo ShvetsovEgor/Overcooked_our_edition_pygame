@@ -235,8 +235,8 @@ class SecondPlayer(pygame.sprite.Sprite):
 
             if plates:
                 self.object.image = pygame.transform.scale(self.object.image,
-                                                           (plates[-1].image.get_width(),
-                                                            plates[-1].image.get_height()))
+                                                               (plates[-1].image.get_width(),
+                                                                plates[-1].image.get_height()))
                 self.object.rect = self.object.image.get_rect()
                 plates[-1] += [self.object]
                 self.object.parent = plates[-1]
@@ -256,6 +256,7 @@ class SecondPlayer(pygame.sprite.Sprite):
                 if type(sprites[-1]) == interier.Oven:
                     self.object.boiled = True
                     self.object.change_pic(self.cell_size)
+
                 self.object = False
                 # elif "Table" in str(sprites[-1]) and self.object.sliced:
                 #     self.object.place = True
@@ -276,6 +277,7 @@ class SecondPlayer(pygame.sprite.Sprite):
                 self.rect.x += 5
             else:
                 frames = self.frames_left
+                self.steps += self.steps % 3
                 go = True
 
         if keys[pygame.K_d]:
@@ -286,6 +288,7 @@ class SecondPlayer(pygame.sprite.Sprite):
                 self.rect.x -= 5
             else:
                 frames = self.frames_right
+                self.steps += self.steps % 3
                 go = True
         if keys[pygame.K_w]:
             self.rect.y -= 5
@@ -294,6 +297,7 @@ class SecondPlayer(pygame.sprite.Sprite):
                 self.rect.y += 5
             else:
                 frames = self.frames_up
+                self.steps += self.steps % 3
                 go = True
 
         if keys[pygame.K_s]:
@@ -303,6 +307,7 @@ class SecondPlayer(pygame.sprite.Sprite):
                 self.rect.y -= 5
             else:
                 frames = self.frames_down
+                self.steps += self.steps % 3
                 go = True
 
         self.steps += 1

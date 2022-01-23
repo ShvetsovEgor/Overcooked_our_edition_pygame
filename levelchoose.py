@@ -70,7 +70,7 @@ class LevelChoose:
         clock = pygame.time.Clock()
         camera = Camera(self.parent.width, self.parent.height)
         while self.running:
-            try:
+            # try:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         self.running = False
@@ -86,15 +86,16 @@ class LevelChoose:
                     level_number = el.update(self.playersgroup)
                     if level_number is not None:
                         GamePlayScene(self, level_number, self.screen)
-                        self.running = False
-
+                        mixer.music.load('sounds/main_music.mp3')
+                        mixer.music.play()
+                        LevelChoose(self, self.screen, 1)
                 self.platformgroup.draw(self.screen)
                 self.playersgroup.draw(self.screen)
                 pygame.display.flip()
                 clock.tick(FPS)
-            except Exception as e:
-                self.running = False
-                print(e)
-                print("Выход из цикла выбора уровня")
-                pygame.quit()
+            # except Exception as e:
+            #     self.running = False
+            #     print(e)
+            #     print("Выход из цикла выбора уровня")
+            #     pygame.quit()
         pygame.quit()

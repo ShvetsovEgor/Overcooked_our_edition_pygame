@@ -27,7 +27,7 @@ class HelloScene:  # После нажатия любой клавиши дол�
         self.text()
         clock = pygame.time.Clock()
         while self.running:
-            try:
+            # try:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         self.running = False
@@ -55,9 +55,9 @@ class HelloScene:  # После нажатия любой клавиши дол�
 
                     clock.tick(FPS)
                     pygame.display.flip()
-            except Exception:
-                print("Завершение работы приложения")
-                pygame.quit()
+            # except Exception:
+            #     print("Завершение работы приложения")
+            #     pygame.quit()
         pygame.quit()
 
     def fon(self):
