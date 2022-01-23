@@ -167,22 +167,22 @@ class GamePlayScene:
     def show_result(self):
         cnt, mx = len([x for x in self.result.values() if x]), len(self.result.values())
         print(f"result {cnt} of {mx}")
-        # clock = pygame.time.Clock()
-        # self.running = True
-        # while self.running:
-        #     for event in pygame.event.get():
-        #             if event.type == pygame.QUIT:
-        #                 self.running = False
-        #             if event.type == pygame.KEYDOWN:
-        #                 screen.fill("red")
-        #     print("Showing")
-        #     self.screen.fill(pygame.Color('white'))
-        #     pygame.draw.rect(self.screen, "red", (self.border_x, self.border_y, self.width, self.height))
-        #     font = pygame.font.Font(None, 100)
-        #     string_rendered = font.render(f"Поздравляем, ваш результат {result}/{len(self.dishes)}", 1,
-        #                                       pygame.Color('white'))
-        #     intro_rect = string_rendered.get_rect()
-        #     intro_rect.y = self.border_y
-        #     intro_rect.x = self.border_x
-        #     self.screen.blit(string_rendered, intro_rect)
-        #     clock.tick(60)
+        clock = pygame.time.Clock()
+        self.running = True
+        while self.running:
+            for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        self.running = False
+                    if event.type == pygame.KEYDOWN:
+                        screen.fill("red")
+            print("Showing")
+            self.screen.fill(pygame.Color('white'))
+            pygame.draw.rect(self.screen, "red", (self.border_x, self.border_y, self.width, self.height))
+            font = pygame.font.Font(None, 100)
+            string_rendered = font.render(f"Поздравляем, ваш результат {cnt}/{mx}", 1,
+                                              pygame.Color('white'))
+            intro_rect = string_rendered.get_rect()
+            intro_rect.y = self.border_y
+            intro_rect.x = self.border_x
+            self.screen.blit(string_rendered, intro_rect)
+            clock.tick(60)
