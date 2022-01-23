@@ -2,9 +2,8 @@ import csv
 import datetime
 import sqlite3
 from random import choice
-
 import pygame.sprite
-
+platformgroup = pygame.sprite.Group()
 from dishes import *
 from interier import Floor, Wall, Fridge, Oven, Knife, Sink, Box, Table, Checker
 from players import Player, SecondPlayer
@@ -46,10 +45,11 @@ class GamePlayScene:
 
                 font = pygame.font.Font(None, 50)
                 if datetime.datetime.now() - self.first_time > datetime.timedelta(seconds=self.time):
-                    # print("TIMES UP")
+                    print("TIMES UP")
+                    self.running = False
                     self.show_result()
                 else:
-                    text = font.render(str(datetime.datetime.now() - self.first_time), True, (100, 255, 100))
+                    self.text = font.render(str(datetime.datetime.now() - self.first_time), True, (100, 255, 100))
 
                 self.screen.fill("white")
 
@@ -70,7 +70,7 @@ class GamePlayScene:
                     screen.blit(font.render(el, True, (100, 255, 100)),
                                 (self.width - self.border_x, 100 + 50 * i))
 
-                screen.blit(text, (self.width - self.border_x, 50))  # таймер
+                screen.blit(self.text, (self.width - self.border_x, 50))  # таймер
                 clock.tick(FPS)
                 pygame.display.flip()
             except Exception as e:
@@ -158,24 +158,38 @@ class GamePlayScene:
             self.first_player = Player(x, y, self.playersgroup, self.allsprites, self.cell_size - 5)
 
     def show_result(self):
+        pygame.quit()
+        self.running = False
+        FPS = 50
+        pygame.init()
+        infoObject = pygame.display.Info()
+        size = width, height = (infoObject.current_w-50, infoObject.current_h-50)
+        screen = pygame.display.set_mode(size)
+        screen.fill(pygame.Color('white'))
         cnt, mx = len([x for x in self.result.values() if x]), len(self.result.values())
         print(f"result {cnt} of {mx}")
-        # clock = pygame.time.Clock()
-        # self.running = True
-        # while self.running:
-        #     for event in pygame.event.get():
-        #             if event.type == pygame.QUIT:
-        #                 self.running = False
-        #             if event.type == pygame.KEYDOWN:
-        #                 screen.fill("red")
-        #     print("Showing")
-        #     self.screen.fill(pygame.Color('white'))
-        #     pygame.draw.rect(self.screen, "red", (self.border_x, self.border_y, self.width, self.height))
-        #     font = pygame.font.Font(None, 100)
-        #     string_rendered = font.render(f"Поздравляем, ваш результат {result}/{len(self.dishes)}", 1,
-        #                                       pygame.Color('white'))
-        #     intro_rect = string_rendered.get_rect()
-        #     intro_rect.y = self.border_y
-        #     intro_rect.x = self.border_x
-        #     self.screen.blit(string_rendered, intro_rect)
-        #     clock.tick(60)
+
+        clock = pygame.time.Clock()
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                if event.type == pygame.KEYDOWN:
+                    screen.fill("red")
+            pygame.display.flip()
+            kl = 0
+            #print(self.result)
+            for val in self.result.values():
+                if val == True:
+                    kl += 1
+            pygame.draw.rect(screen, "red", (0, 0, width, height))
+            font = pygame.font.Font(None, 60)
+            string_rendered = font.render(f"Поздравляем, ваш результат {kl}/{len(self.dishes)}", 1,
+                                                                                 pygame.Color('white'))
+            intro_rect = string_rendered.get_rect()
+            intro_rect.y = self.border_y + 200
+            intro_rect.x = self.border_x
+            screen.blit(string_rendered, intro_rect)
+            clock.tick(60)
+
