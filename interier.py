@@ -1,4 +1,5 @@
 import pygame
+
 from load_image import load_image
 
 allsprites = pygame.sprite.Group
@@ -23,13 +24,15 @@ class Checker(pygame.sprite.Sprite):
         print(self.parent.result)
         print("Ваша тарелка")
         for el in obj.ingridients:
-            print(el.title, el.sliced)
+            print(el.title, el.boiled)
         print("По рецепту")
-        print([type(x) for x in self.parent.dishes])
+
         for elem in self.parent.result:
             if obj == elem:
                 self.parent.result[elem] = True
                 print("+1")
+            else:
+                print("wrong")
         if all(self.parent.result.values()):
             self.parent.show_result()
 

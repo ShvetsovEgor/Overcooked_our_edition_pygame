@@ -1,11 +1,14 @@
 import csv
+import datetime
 import sqlite3
-import pygame.sprite
 from random import choice
+
+import pygame.sprite
+from pygame import mixer
+
+from dishes import *
 from interier import Floor, Wall, Fridge, Oven, Knife, Sink, Box, Table, Checker
 from players import Player, SecondPlayer
-from dishes import *
-import datetime
 
 
 class GamePlayScene:
@@ -26,8 +29,11 @@ class GamePlayScene:
         self.result = {}
         self.load_level()
         self.running = True
+        mixer.music.load('sounds/gameplay.mp3')
+        mixer.music.play()
         FPS = 60
         clock = pygame.time.Clock()
+        countdown = True
         while self.running:
             try:
                 for event in pygame.event.get():
@@ -43,8 +49,11 @@ class GamePlayScene:
                             self.second_player.find(self.foodgroup, self.put_able)
 
                 font = pygame.font.Font(None, 50)
+                if countdown and datetime.datetime.now() - self.first_time > datetime.timedelta(seconds=self.time - 11):
+                    countdown = False
+                    mixer.music.load('sounds/countdown.mp3')
+                    mixer.music.play()
                 if datetime.datetime.now() - self.first_time > datetime.timedelta(seconds=self.time):
-                    # print("TIMES UP")
                     self.show_result()
                 else:
                     text = font.render(str(datetime.datetime.now() - self.first_time), True, (100, 255, 100))
@@ -98,7 +107,7 @@ class GamePlayScene:
             print(self.dishes)
 
         self.ingridients = {}
-        for el in res[4].split(";"):
+        for el in res[4].split("; "):
             el = el.split(": ")
 
             if el[0] in self.ingridients:
@@ -119,7 +128,10 @@ class GamePlayScene:
                 elif self.board[y][x][0] == '#':
                     Wall(vect_x, vect_y, self.allsprites, self.obstacle, self.cell_size)
                 elif self.board[y][x][0] == 'f':
-                    Fridge(vect_x, vect_y, self.allsprites, self.obstacle, self.put_able, self.cell_size)
+                    parent = Fridge(vect_x, vect_y, self.allsprites, self.obstacle, self.put_able, self.cell_size)
+                    for title in self.ingridients["Fridge"]:
+                        f = Food(title, parent, self.allsprites, self.foodgroup)
+                        f.image = pygame.transform.scale(f.image, (self.cell_size, self.cell_size))
                 elif self.board[y][x][0] == 'o':
                     Oven(vect_x, vect_y, self.allsprites, self.obstacle, self.put_able, self.cell_size)
                 elif self.board[y][x][0] == 'k':
@@ -153,8 +165,8 @@ class GamePlayScene:
             self.first_player = Player(x, y, self.playersgroup, self.allsprites, self.cell_size - 5)
 
     def show_result(self):
-        cnt, mx = len([x for x in self.parent.result.values() if x]), len(self.parent.result.values())
-        print(f"result{cnt}of{mx}")
+        cnt, mx = len([x for x in self.result.values() if x]), len(self.result.values())
+        print(f"result {cnt} of {mx}")
         # clock = pygame.time.Clock()
         # self.running = True
         # while self.running:

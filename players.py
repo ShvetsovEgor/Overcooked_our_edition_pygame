@@ -3,7 +3,6 @@ import pygame.sprite
 import food
 import interier
 from load_image import load_image
-from food import Food
 
 
 class Player(pygame.sprite.Sprite):
@@ -93,10 +92,12 @@ class Player(pygame.sprite.Sprite):
                     sprites[-1].check(self.object)
                 if type(sprites[-1]) == interier.Knife:
                     print(self.object)
-
                     if type(self.object) == food.Food:
                         self.object.sliced = True
                         self.object.change_pic(self.cell_size)
+                if type(sprites[-1]) == interier.Oven:
+                    self.object.boiled = True
+                    self.object.change_pic(self.cell_size)
                 self.object = False
                 # elif "Table" in str(sprites[-1]) and self.object.sliced:
                 #     self.object.place = True
