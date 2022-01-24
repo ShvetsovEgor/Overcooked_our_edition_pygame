@@ -45,10 +45,10 @@ class LevelChoose:
         y = self.parent.height // 2
 
         if self.kol == 1:
-            self.obj = Player(50, y - 50, self.playersgroup, self.allsprites)
+            self.obj = Player(50, y - 50, self.playersgroup, self.allsprites, self)
         else:
-            self.obj = Player(50, y - 50, self.playersgroup, self.allsprites)
-            SecondPlayer(50, y + 50, self.playersgroup, self.allsprites)
+            self.obj = Player(50, y - 50, self.playersgroup, self.allsprites, self)
+            SecondPlayer(50, y + 50, self.playersgroup, self.allsprites, self)
 
         pygame.draw.rect(self.screen, "black", (0, y - 100, x, 200))
 
@@ -70,7 +70,7 @@ class LevelChoose:
         clock = pygame.time.Clock()
         camera = Camera(self.parent.width, self.parent.height)
         while self.running:
-            # try:
+            try:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         self.running = False
@@ -93,9 +93,9 @@ class LevelChoose:
                 self.playersgroup.draw(self.screen)
                 pygame.display.flip()
                 clock.tick(FPS)
-            # except Exception as e:
-            #     self.running = False
-            #     print(e)
-            #     print("Выход из цикла выбора уровня")
-            #     pygame.quit()
+            except Exception as e:
+                self.running = False
+                print(e)
+                print("Выход из цикла выбора уровня")
+                pygame.quit()
         pygame.quit()

@@ -6,8 +6,9 @@ from load_image import load_image
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, playersgroup, allsprites, cell_size=50):
+    def __init__(self, x, y, playersgroup, allsprites, parent, cell_size=50):
         super().__init__(allsprites, playersgroup)
+        self.parent = parent
         self.steps = 0
         self.frames = []
         self.dishes = []
@@ -160,8 +161,9 @@ class Player(pygame.sprite.Sprite):
 
 
 class SecondPlayer(pygame.sprite.Sprite):
-    def __init__(self, x, y, playersgroup, allsprites, cell_size=50):
+    def __init__(self, x, y, playersgroup, allsprites, parent, cell_size=50):
         super().__init__(allsprites, playersgroup)
+        self.parent = parent
         self.frames = []
         self.dishes = []
         self.steps = 0
@@ -240,6 +242,7 @@ class SecondPlayer(pygame.sprite.Sprite):
                 self.object.rect = self.object.image.get_rect()
                 plates[-1] += [self.object]
                 self.object.parent = plates[-1]
+                self.object.parent.pa
                 if type(plates[-1]) == interier.Checker:
                     self.object.parent = sprites[-1]
                     plates[-1].check(self.object)
