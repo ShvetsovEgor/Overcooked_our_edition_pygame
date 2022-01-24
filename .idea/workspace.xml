@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="efed66b3-1ce8-43f2-aa25-1d8ca2329b0f" name="Changes" comment="Тарелки хранят в себе продукты">
+    <list default="true" id="efed66b3-1ce8-43f2-aa25-1d8ca2329b0f" name="Changes" comment="Возврат к выбору уровня&#10;(Пока без окна результатов)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gameplay.py" beforeDir="false" afterPath="$PROJECT_DIR$/gameplay.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interier.py" beforeDir="false" afterPath="$PROJECT_DIR$/interier.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/level_history.db" beforeDir="false" afterPath="$PROJECT_DIR$/level_history.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/levelchoose.py" beforeDir="false" afterPath="$PROJECT_DIR$/levelchoose.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/levels/level2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/levels/level2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/players.py" beforeDir="false" afterPath="$PROJECT_DIR$/players.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -197,7 +191,14 @@
       <option name="project" value="LOCAL" />
       <updated>1642940655388</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Возврат к выбору уровня&#10;(Пока без окна результатов)">
+      <created>1642958387755</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1642958387781</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -218,6 +219,7 @@
     <MESSAGE value="временный коммит 16:09" />
     <MESSAGE value="Описание заказа" />
     <MESSAGE value="Звуки" />
-    <option name="LAST_COMMIT_MESSAGE" value="Звуки" />
+    <MESSAGE value="Возврат к выбору уровня&#10;(Пока без окна результатов)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Возврат к выбору уровня&#10;(Пока без окна результатов)" />
   </component>
 </project>

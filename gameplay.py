@@ -173,25 +173,30 @@ class GamePlayScene:
         # size = width, height = (infoObject.current_w - 50, infoObject.current_h - 50)
         # screen = pygame.display.set_mode(size)
         # screen.fill(pygame.Color('white'))
-        # cnt, mx = len([x for x in self.result.values() if x]), len(self.result.values())
-        # print(f"result {cnt} of {mx}")
-        #
-        # clock = pygame.time.Clock()
-        # running = True
-        # while running:
-        #     for event in pygame.event.get():
-        #         if event.type == pygame.QUIT:
-        #             running = False
-        #         if event.type == pygame.KEYDOWN:
-        #             running = False
-        #     pygame.display.flip()
-        #
-        #     pygame.draw.rect(screen, "red", (0, 0, width, height))
-        #     font = pygame.font.Font(None, 60)
-        #     string_rendered = font.render(f"Поздравляем, ваш результат {cnt}/{mx}", 1,
-        #                                   pygame.Color('white'))
-        #     intro_rect = string_rendered.get_rect()
-        #     intro_rect.y = self.border_y + 200
-        #     intro_rect.x = self.border_x
-        #     screen.blit(string_rendered, intro_rect)
-        #     clock.tick(60)
+        cnt, mx = len([x for x in self.result.values() if x]), len(self.result.values())
+        print(f"result {cnt} of {mx}")
+        if cnt == mx:
+            con = sqlite3.connect('level_history.db')
+            cur = con.cursor()
+            cur.execute(f"UPDATE history SET status = 1 WHERE level_id = {int(self.filenumber)}")
+            con.commit()
+            con.close()
+        clock = pygame.time.Clock()
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                if event.type == pygame.KEYDOWN:
+                    running = False
+            pygame.display.flip()
+
+            pygame.draw.rect(self.screen, "red", (0, 0, width, height))
+            font = pygame.font.Font(None, 60)
+            string_rendered = font.render(f"Поздравляем, ваш результат {cnt}/{mx}", 1,
+                                          pygame.Color('white'))
+            intro_rect = string_rendered.get_rect()
+            intro_rect.y = self.border_y + 200
+            intro_rect.x = self.border_x
+            self.screen.blit(string_rendered, intro_rect)
+            clock.tick(60)
