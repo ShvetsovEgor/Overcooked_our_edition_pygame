@@ -64,8 +64,8 @@ plategroup = pygame.sprite.Group()
 
 
 class Plate(pygame.sprite.Sprite):
-    def __init__(self, parent, allsprites, plategroup, foodgroup, put_able):
-        super().__init__(allsprites, plategroup, foodgroup, put_able)
+    def __init__(self, parent, allsprites, plategroup, put_able):
+        super().__init__(allsprites, plategroup, put_able)
         self.parent = parent
         self.image = pygame.transform.scale(load_image("02_dish_2.png"), (50, 50))
         self.rect = self.image.get_rect()
@@ -93,7 +93,10 @@ class Plate(pygame.sprite.Sprite):
         return self
 
     def __repr__(self):
-        return " ".join([str(x) for x in self.ingridients])
+        line = " ".join([str(x) for x in self.ingridients])
+        if line:
+            return line
+        return "Пустая тарелка"
 
     def __hash__(self):
         return id(self)

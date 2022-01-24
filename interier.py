@@ -34,6 +34,9 @@ class Checker(pygame.sprite.Sprite):
                     print("+1")
                 else:
                     print("wrong")
+                for el in obj.ingridients:
+                    el.kill()
+                obj.kill()
             if all(self.parent.result.values()):
                 self.parent.show_result()
         except Exception:

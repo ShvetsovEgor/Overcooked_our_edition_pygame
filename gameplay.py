@@ -43,7 +43,7 @@ class GamePlayScene:
 
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_SPACE:
-                            self.first_player.find(self.foodgroup, self.put_able)
+                            self.first_player.find(self.foodgroup, self.put_able, self.plategroup)
                         elif event.key == pygame.K_e:
                             self.second_player.find(self.foodgroup, self.put_able)
 
@@ -149,7 +149,7 @@ class GamePlayScene:
                 elif self.board[y][x][0] == 't':
                     t = Table(vect_x, vect_y, self.allsprites, self.obstacle, self.put_able, self.cell_size)
                     if len(self.board[y][x]) == 2 and self.board[y][x][1] == "p":
-                        Plate(t, self.allsprites, self.plategroup, self.foodgroup, self.put_able)
+                        Plate(t, self.allsprites, self.plategroup, self.put_able)
                 elif self.board[y][x][0] == 'c':
                     self.checker = Checker(vect_x, vect_y, self.allsprites, self, self.obstacle, self.put_able,
                                            self.cell_size)

@@ -17,7 +17,7 @@ parent = None
 # Pizza += [Food("Тесто", Pizza, allsprites, foodgroup), Food("Томат", Pizza, allsprites, foodgroup, sliced=True),
 #           Food('Сыр', Pizza, allsprites, foodgroup, sliced=True)]
 
-Salad = Plate(parent, allsprites, platesgroup, foodgroup, put_able)
+Salad = Plate(parent, allsprites, platesgroup, put_able)
 Salad += [Food("Томат", Salad, allsprites, foodgroup, sliced=True),
           Food("Огурец", Salad, allsprites, foodgroup, sliced=True)]
 
@@ -25,8 +25,8 @@ Salad += [Food("Томат", Salad, allsprites, foodgroup, sliced=True),
 # Soup += [Food('Бульон', Soup, allsprites, foodgroup),
 #          Food('Мясо', Soup, allsprites, foodgroup, sliced=True, boiled=True),
 #          Food('Грибы', Soup, foodgroup, allsprites, sliced=True)]
-Soup = Plate(parent, allsprites, platesgroup, foodgroup, put_able)
-Soup += [Food('Мясо', Soup, allsprites, foodgroup, sliced=False, boiled=True)]
+Steak = Plate(parent, allsprites, platesgroup, put_able)
+Steak += [Food('Мясо', Steak, allsprites, foodgroup, sliced=False, boiled=True)]
 # Burger = Plate(parent, allsprites, platesgroup)
 # Burger += [Food('Хлеб', Burger, allsprites, foodgroup),
 #            Food('Мясо', Burger, allsprites, foodgroup, sliced=True, fried=True),

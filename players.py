@@ -38,23 +38,28 @@ class Player(pygame.sprite.Sprite):
                 self.frames.append(sheet.subsurface(pygame.Rect(
                     frame_location, self.rect.size)))
 
-    def find(self, foodgroup, put_able):
+    def find(self, foodgroup, put_able, plategroup):
         # горячие клавиши
         x, y = self.rect.x, self.rect.y
         if not self.object:
             if self.direction == "U":
                 self.rect.y -= self.cell_size
-                sprite = pygame.sprite.spritecollide(self, foodgroup, False)
+                sprite = pygame.sprite.spritecollide(self, foodgroup, False) + \
+                         pygame.sprite.spritecollide(self, plategroup, False)
             elif self.direction == "D":
                 self.rect.y += self.cell_size
-                sprite = pygame.sprite.spritecollide(self, foodgroup, False)
+                sprite = pygame.sprite.spritecollide(self, foodgroup, False) + \
+                         pygame.sprite.spritecollide(self, plategroup, False)
             elif self.direction == "R":
                 self.rect.x += self.cell_size
-                sprite = pygame.sprite.spritecollide(self, foodgroup, False)
+                sprite = pygame.sprite.spritecollide(self, foodgroup, False) + \
+                         pygame.sprite.spritecollide(self, plategroup, False)
             elif self.direction == "L":
                 self.rect.x -= self.cell_size
-                sprite = pygame.sprite.spritecollide(self, foodgroup, False)
+                sprite = pygame.sprite.spritecollide(self, foodgroup, False) + \
+                         pygame.sprite.spritecollide(self, plategroup, False)
             print("Берем>", sprite)
+
             if sprite:
                 plates = [x for x in sprite if type(x) == food.Plate]
                 if plates:
@@ -86,7 +91,10 @@ class Player(pygame.sprite.Sprite):
                                                             plates[-1].image.get_height()))
                 self.object.rect = self.object.image.get_rect()
                 plates[-1] += [self.object]
+                print(plates[-1], 1)
+
                 self.object.parent = plates[-1]
+                self.object = False
                 if type(plates[-1]) == interier.Checker:
                     self.object.parent = sprites[-1]
                     plates[-1].check(self.object)
@@ -95,6 +103,7 @@ class Player(pygame.sprite.Sprite):
                 self.object.parent = sprites[-1]
                 if type(sprites[-1]) == interier.Checker:
                     sprites[-1].check(self.object)
+                    print(self.object)
                 if type(sprites[-1]) == interier.Knife:
                     print(self.object)
                     if type(self.object) == food.Food:
@@ -155,7 +164,6 @@ class Player(pygame.sprite.Sprite):
         if go and self.steps % 3 == 0:
             self.cur_frame = (self.cur_frame + 1) % len(frames)
             self.image = frames[self.cur_frame]
-            print(self.steps)
         if self.steps > 1000:
             self.steps = 0
 
@@ -317,6 +325,5 @@ class SecondPlayer(pygame.sprite.Sprite):
         if go and self.steps % 3 == 0:
             self.cur_frame = (self.cur_frame + 1) % len(frames)
             self.image = frames[self.cur_frame]
-            print(self.steps)
         if self.steps > 1000:
             self.steps = 0
