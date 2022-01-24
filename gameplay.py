@@ -70,7 +70,8 @@ class GamePlayScene:
                 self.playersgroup.draw(self.screen)
                 self.plategroup.draw(self.screen)
                 self.foodgroup.draw(self.screen)
-
+                title = font.render(str(self.title), True, (100, 255, 100))
+                screen.blit(title, (10, 20))
 
 
 
