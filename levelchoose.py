@@ -4,6 +4,7 @@ import pygame
 from pygame import mixer
 from gameplay import GamePlayScene
 from level_platform import LevelPlatform
+from level_platform import Road
 from players import Player, SecondPlayer
 
 
@@ -41,7 +42,7 @@ class LevelChoose:
         con = sqlite3.connect("level_history.db")
         cur = con.cursor()
         result = cur.execute("Select * from history").fetchall()
-        x = 200
+        x = 0
         y = self.parent.height // 2
 
         if self.kol == 1:
@@ -55,8 +56,11 @@ class LevelChoose:
         # запрос из БД!
         print(result)
         y -= 100
+        Road(x, y - 10, self.allsprites)
+        x += 150
         for el in result:
-            # рисуем мостик или дорогу
+            Road(x, y - 10, self.allsprites)
+            Road(x + 150, y - 10, self.allsprites)
             if el[1]:
                 LevelPlatform(self.screen, x, y, self.platformgroup, self.allsprites, str(el[0]), "green")
             else:
@@ -77,9 +81,11 @@ class LevelChoose:
                         self.parent.running = False
 
                 self.screen.fill((0, 0, 255))
+
                 camera.update(self.obj)
                 for el in self.allsprites:
                     camera.apply(el)
+                self.allsprites.draw(self.screen)
                 self.playersgroup.update(self.obstacle)
 
                 for el in self.platformgroup:

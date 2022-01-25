@@ -170,14 +170,6 @@ class GamePlayScene:
 
     def show_result(self):
         self.running = False
-        # pygame.quit()
-        # self.running = False
-        # FPS = 50
-        # pygame.init()
-        # infoObject = pygame.display.Info()
-        # size = width, height = (infoObject.current_w - 50, infoObject.current_h - 50)
-        # screen = pygame.display.set_mode(size)
-        # screen.fill(pygame.Color('white'))
         cnt, mx = len([x for x in self.result.values() if x]), len(self.result.values())
         print(f"result {cnt} of {mx}")
         if cnt == mx:
