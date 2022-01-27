@@ -4,7 +4,11 @@ from food import Plate, Food
 
 pygame.init()
 infoObject = pygame.display.Info()
-size = width, height = (infoObject.current_w - 50, infoObject.current_h - 50)
+FULLSCREEN = True
+if FULLSCREEN:
+    size = width, height = (infoObject.current_w, infoObject.current_h)
+else:
+    size = width, height = (infoObject.current_w - 50, infoObject.current_h - 50)
 screen = pygame.display.set_mode(size)
 
 allsprites = pygame.sprite.Group()
@@ -26,7 +30,7 @@ Salad += [Food("Томат", Salad, allsprites, foodgroup, sliced=True),
 #          Food('Мясо', Soup, allsprites, foodgroup, sliced=True, boiled=True),
 #          Food('Грибы', Soup, foodgroup, allsprites, sliced=True)]
 Steak = Plate(parent, allsprites, platesgroup, put_able)
-Steak += [Food('Мясо', Steak, allsprites, foodgroup, sliced=False, boiled=True)]
+Steak += [Food('Мясо', Steak, allsprites, foodgroup, sliced=False, fried=True)]
 # Burger = Plate(parent, allsprites, platesgroup)
 # Burger += [Food('Хлеб', Burger, allsprites, foodgroup),
 #            Food('Мясо', Burger, allsprites, foodgroup, sliced=True, fried=True),
@@ -34,9 +38,9 @@ Steak += [Food('Мясо', Steak, allsprites, foodgroup, sliced=False, boiled=Tr
 #            Food('Томат', Burger, allsprites, foodgroup, sliced=True),
 #            Food('Салат', Burger, allsprites, foodgroup)]
 #
-# Fish_and_Chips = Plate(parent, allsprites, platesgroup)
-# Fish_and_Chips += [Food('Рыба', Fish_and_Chips, allsprites, foodgroup, fried=True, sliced=True),
-#                    Food('Картофель', Fish_and_Chips, allsprites, foodgroup, sliced=True, fried=True)]
+Fish_and_Chips = Plate(parent, allsprites, platesgroup, put_able)
+Fish_and_Chips += [Food('Рыба', Fish_and_Chips, allsprites, foodgroup, fried=True, sliced=True),
+                   Food('Картофель', Fish_and_Chips, allsprites, foodgroup, sliced=True, fried=True)]
 #
 # Meat_Burrito = Plate(parent, allsprites, platesgroup)
 # Meat_Burrito += [Food('Мясо', Meat_Burrito, allsprites, foodgroup, sliced=True, boiled=True),

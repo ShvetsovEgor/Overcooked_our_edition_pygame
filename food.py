@@ -3,12 +3,13 @@ import pygame
 from load_image import load_image
 
 visual_food = {"Название": ["Нормальное состояние", "Нарезанное состояние", "Сваренное состояние", "Жареное состояние"],
-               "Мясо": ["meat.png", '', '95_steak.png'],
+               "Мясо": ["meat.png", '', '', '95_steak.png'],
                'Томат': ['tomato.png', 'rounded-texture-tomato.png'],
                "Огурец": ['cucumber.png', 'ronded-texture-cucumber.png'],
-               "Картофель": ['tomato.png', 'sliced_tomato.png', 'fried_potato.png'],
+               "Картофель": ['potato.png', 'sliced_potato.png', '', 'fried_potato.png'],
                "Морковь": ['carrot.png', 'sliced_carrot.png'],
-               'Салат': ['salad.png']}
+               "Рыба": ['fish.png', 'sliced_fish.png', '', 'fried_fish.png']
+                                   }
 
 
 # тут будут различные фото для каждой еды [нормальное состояние, нарезанное, сваренное] и т.д.
@@ -51,9 +52,9 @@ class Food(pygame.sprite.Sprite):
 
     def change_pic(self, cell_size):
         if self.sliced:
-            self.image = pygame.transform.scale(load_image(visual_food[self.title][1]), (cell_size, cell_size))
-        if self.boiled:
-            self.image = pygame.transform.scale(load_image(visual_food[self.title][2]), (cell_size, cell_size))
+            self.image = pygame.transform.scale(load_image(visual_food[self.title][1]), (cell_size * 0.8, cell_size * 0.8))
+        if self.fried:
+            self.image = pygame.transform.scale(load_image(visual_food[self.title][3]), (cell_size * 0.8, cell_size * 0.8))
         x, y, width, height = self.image.get_rect()
         self.rect = self.image.get_rect()
         self.rect.x = self.parent.rect.x
@@ -76,6 +77,7 @@ class Plate(pygame.sprite.Sprite):
         # if set(self.ingridients) == set(other.ingridients):
         #     return True                  #требовалось хеширование
         print("СРАВНЕНИЕ")
+
         print(other.ingridients, 'other')
         print(self.ingridients, 'self')
 

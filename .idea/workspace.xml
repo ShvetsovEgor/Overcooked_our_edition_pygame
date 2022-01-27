@@ -3,12 +3,127 @@
   <component name="ChangeListManager">
     <list default="true" id="efed66b3-1ce8-43f2-aa25-1d8ca2329b0f" name="Changes" comment="Исправление бага перерисовки и проверки">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/05_apple_pie.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/06_apple_pie_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/07_bread.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/08_bread_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/09_baguette.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/100_taco_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/101_waffle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/102_waffle_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/10_baguette_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/11_bun.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/12_bun_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/13_bacon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/14_bacon_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/15_burger.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/16_burger_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/17_burger_napkin.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/18_burrito.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/19_burrito_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/20_bagel.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/21_bagel_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22_cheesecake.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/23_cheesecake_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/24_cheesepuff.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/25_cheesepuff_bowl.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/26_chocolate.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/27_chocolate_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/28_cookies.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/29_cookies_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/30_chocolatecake.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/31_chocolatecake_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/32_curry.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/33_curry_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/34_donut.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/35_donut_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/36_dumplings.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/37_dumplings_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/38_friedegg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/39_friedegg_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/40_eggsalad.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/41_eggsalad_bowl.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/42_eggtart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/43_eggtart_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/44_frenchfries.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/45_frenchfries_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/46_fruitcake.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/47_fruitcake_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/48_garlicbread.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/49_garlicbread_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/50_giantgummybear.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/51_giantgummybear_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/52_gingerbreadman.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/53_gingerbreadman_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/54_hotdog.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/55_hotdog_sauce.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/56_hotdog_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/57_icecream.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/58_icecream_bowl.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/59_jelly.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/60_jelly_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/61_jam.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/62_jam_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/63_lemonpie.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/64_lemonpie_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/65_loafbread.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/66_loafbread_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/67_macncheese.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/68_macncheese_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/69_meatball.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/70_meatball_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/71_nacho.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/72_nacho_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/73_omlet.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/74_omlet_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/75_pudding.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/76_pudding_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/77_potatochips.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/78_potatochips_bowl.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/79_pancakes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/80_pancakes_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/81_pizza.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/82_pizza_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/83_popcorn.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/84_popcorn_bowl.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/85_roastedchicken.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/86_roastedchicken_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/87_ramen.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/88_salmon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/89_salmon_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/90_strawberrycake.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/91_strawberrycake_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/92_sandwich.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/93_sandwich_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/94_spaghetti.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/96_steak_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/97_sush — копия.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/97_sushi.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/98_sushi_dish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/99_taco.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/box_opened.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/cell.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/fon1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/fridge_opened (2).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/green.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/platform.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/potato.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/potato.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/salad.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sliced_potato.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/sliced_potato.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/walk.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/wall.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dishes.py" beforeDir="false" afterPath="$PROJECT_DIR$/dishes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/food.py" beforeDir="false" afterPath="$PROJECT_DIR$/food.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gameplay.py" beforeDir="false" afterPath="$PROJECT_DIR$/gameplay.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/level3.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/level_history.db" beforeDir="false" afterPath="$PROJECT_DIR$/level_history.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/level_platform.py" beforeDir="false" afterPath="$PROJECT_DIR$/level_platform.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/levelchoose.py" beforeDir="false" afterPath="$PROJECT_DIR$/levelchoose.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/levels/level1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/levels/level1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/levels/level2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/levels/level2.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mixer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/players.py" beforeDir="false" afterPath="$PROJECT_DIR$/players.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sounds/AlbumArtSmall.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sounds/Folder.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +158,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.packer">
     <configuration name="123" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pygame-overcooked" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -86,27 +201,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="interier" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Pygame-overcooked" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/interier.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pygame-overcooked" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -120,6 +214,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="packer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Pygame-overcooked" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/OneDrive/Документы/Программа для создания exe пакетов" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/OneDrive/Документы/Программа для создания exe пакетов/packer.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -151,11 +266,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.packer" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.gameplay" />
         <item itemvalue="Python.123" />
         <item itemvalue="Python.players" />
-        <item itemvalue="Python.interier" />
-        <item itemvalue="Python.gameplay" />
       </list>
     </recent_temporary>
   </component>

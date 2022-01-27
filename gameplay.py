@@ -40,6 +40,9 @@ class GamePlayScene:
                     if event.type == pygame.QUIT:
                         self.running = False
                         self.parent.running = False
+                    if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                        self.running = False
+                        self.parent.running = False
 
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_SPACE:
@@ -135,7 +138,7 @@ class GamePlayScene:
                     parent = Fridge(vect_x, vect_y, self.allsprites, self.obstacle, self.put_able, self.cell_size)
                     for title in self.ingridients["Fridge"]:
                         f = Food(title, parent, self.allsprites, self.foodgroup)
-                        f.image = pygame.transform.scale(f.image, (self.cell_size, self.cell_size))
+                        f.image = pygame.transform.scale(f.image, (self.cell_size * 0.5, self.cell_size * 0.5))
                 elif self.board[y][x][0] == 'o':
                     Oven(vect_x, vect_y, self.allsprites, self.obstacle, self.put_able, self.cell_size)
                 elif self.board[y][x][0] == 'k':
@@ -146,7 +149,7 @@ class GamePlayScene:
                     parent = Box(vect_x, vect_y, self.allsprites, self.obstacle, self.put_able, self.cell_size)
                     for title in self.ingridients["Box"]:
                         f = Food(title, parent, self.allsprites, self.foodgroup)
-                        f.image = pygame.transform.scale(f.image, (self.cell_size, self.cell_size))
+                        f.image = pygame.transform.scale(f.image, (self.cell_size * 0.5, self.cell_size * 0.5))
                 elif self.board[y][x][0] == 't':
                     t = Table(vect_x, vect_y, self.allsprites, self.obstacle, self.put_able, self.cell_size)
                     if len(self.board[y][x]) == 2 and self.board[y][x][1] == "p":
@@ -169,6 +172,7 @@ class GamePlayScene:
             self.first_player = Player(x, y, self.playersgroup, self.allsprites, self, self.cell_size - 5)
 
     def show_result(self):
+        end_time = datetime.datetime.now()
         self.running = False
         cnt, mx = len([x for x in self.result.values() if x]), len(self.result.values())
         print(f"result {cnt} of {mx}")
@@ -194,6 +198,12 @@ class GamePlayScene:
                                           pygame.Color('white'))
             intro_rect = string_rendered.get_rect()
             intro_rect.y = self.border_y + 200
+            intro_rect.x = self.border_x
+            self.screen.blit(string_rendered, intro_rect)
+            string_rendered = font.render(f"Вы уложились за {(end_time - self.first_time).total_seconds()}c", 1,
+                                          pygame.Color('white'))
+            intro_rect = string_rendered.get_rect()
+            intro_rect.y = self.border_y + 300
             intro_rect.x = self.border_x
             self.screen.blit(string_rendered, intro_rect)
             clock.tick(60)

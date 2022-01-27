@@ -48,8 +48,8 @@ class LevelChoose:
         if self.kol == 1:
             self.obj = Player(50, y - 50, self.playersgroup, self.allsprites, self)
         else:
-            self.obj = Player(50, y - 50, self.playersgroup, self.allsprites, self)
-            SecondPlayer(50, y + 50, self.playersgroup, self.allsprites, self)
+            self.obj = Player(50, y - 70, self.playersgroup, self.allsprites, self)
+            SecondPlayer(50, y - 20, self.playersgroup, self.allsprites, self)
 
         pygame.draw.rect(self.screen, "black", (0, y - 100, x, 200))
 
@@ -79,6 +79,9 @@ class LevelChoose:
                     if event.type == pygame.QUIT:
                         self.running = False
                         self.parent.running = False
+                    if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                        self.running = False
+                        self.parent.running = False
 
                 self.screen.fill((0, 0, 255))
 
@@ -94,7 +97,10 @@ class LevelChoose:
                         GamePlayScene(self, level_number, self.screen)
                         mixer.music.load('sounds/main_music.mp3')
                         mixer.music.play()
-                        LevelChoose(self, self.screen, 1)
+                        if self.kol == 2:
+                            LevelChoose(self, self.screen, 2)
+                        else:
+                            LevelChoose(self, self.screen, 1)
                 self.platformgroup.draw(self.screen)
                 self.playersgroup.draw(self.screen)
                 pygame.display.flip()

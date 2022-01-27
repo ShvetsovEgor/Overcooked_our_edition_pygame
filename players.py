@@ -87,8 +87,8 @@ class Player(pygame.sprite.Sprite):
 
             if plates:
                 self.object.image = pygame.transform.scale(self.object.image,
-                                                           (plates[-1].image.get_width(),
-                                                            plates[-1].image.get_height()))
+                                                           (plates[-1].image.get_width() - 10,
+                                                            plates[-1].image.get_height() - 10))
                 self.object.rect = self.object.image.get_rect()
                 plates[-1] += [self.object]
                 print(plates[-1], 1)
@@ -110,7 +110,7 @@ class Player(pygame.sprite.Sprite):
                         self.object.sliced = True
                         self.object.change_pic(self.cell_size)
                 if type(sprites[-1]) == interier.Oven:
-                    self.object.boiled = True
+                    self.object.fried = True
                     self.object.change_pic(self.cell_size)
                 self.object = False
                 # elif "Table" in str(sprites[-1]) and self.object.sliced:
@@ -120,7 +120,7 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.x, self.rect.y = x, y
 
-    def update(self, obstacle, foodgroup=None, plategroup=None):
+    def update(self, obstacle):
         go = False
         x = self.rect.x
         y = self.rect.y
@@ -160,6 +160,7 @@ class Player(pygame.sprite.Sprite):
             else:
                 frames = self.frames_down
                 go = True
+
         self.steps += 1
         if go and self.steps % 3 == 0:
             self.cur_frame = (self.cur_frame + 1) % len(frames)

@@ -3,11 +3,14 @@ from pygame import mixer
 from button import Button
 from levelchoose import LevelChoose
 from load_image import load_image
-
+FULLSCREEN = True
 FPS = 50
 pygame.init()
 infoObject = pygame.display.Info()
-size = width, height = (infoObject.current_w - 50, infoObject.current_h - 50)
+if FULLSCREEN:
+    size = width, height = (infoObject.current_w, infoObject.current_h)
+else:
+    size = width, height = (infoObject.current_w - 50, infoObject.current_h - 50)
 screen = pygame.display.set_mode(size)
 
 
