@@ -1,13 +1,16 @@
 import pygame
-
-from load_image import load_image
-from button import Button, buttongroup
+from pygame import mixer
+from button import Button
 from levelchoose import LevelChoose
-
+from load_image import load_image
+FULLSCREEN = True
 FPS = 50
 pygame.init()
 infoObject = pygame.display.Info()
-size = width, height = (infoObject.current_w - 100, infoObject.current_h - 100)
+if FULLSCREEN:
+    size = width, height = (infoObject.current_w, infoObject.current_h)
+else:
+    size = width, height = (infoObject.current_w - 50, infoObject.current_h - 50)
 screen = pygame.display.set_mode(size)
 
 
@@ -15,32 +18,49 @@ class HelloScene:  # После нажатия любой клавиши дол�
     # при нажатии на одну из этих кнопок, загружается поле с уровнями, и в цикле проверяется находятся ли все игроки в
     # пересечении со спрайтом плитки уровня
     def __init__(self, width, height):
+        self.buttongroup = pygame.sprite.Group()
+        self.button_sound = mixer.Sound('sounds/button.mp3')
+        mixer.music.load('sounds/main_music.mp3')
+        mixer.music.play()
         FPS = 100
-        running = True
+        self.running = True
         self.width = width
         self.height = height
         self.fon()
         self.text()
         clock = pygame.time.Clock()
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                if event.type == pygame.KEYDOWN:
-                    screen.fill("red")
-                    Button(screen, width // 2 - 200, height // 2, "1P", "white")
-                    Button(screen, width // 2 + 200, height // 2, "2P", "white")
-                for el in buttongroup:
-                    reaction = el.update(event)
-                    if reaction == "1P":
-                        running = False
-                        LevelChoose(self, screen, 1)
-                    elif reaction == "2P":
-                        running = False
-                        LevelChoose(self, screen, 2)
+        while self.running:
+            try:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        self.running = False
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                            self.running = False
+                        else:
+                            screen.fill("red")
+                            Button(screen, width // 2 - 200, height // 2, self.buttongroup, "1P", "white")
+                            Button(screen, width // 2 + 200, height // 2, self.buttongroup, "2P", "white")
+                    for el in self.buttongroup:
+                        reaction = el.update(event)
+                        if reaction == "1P":
+                            self.button_sound.play()
+                            mixer.music.set_volume(0.5)
+                            LevelChoose(self, screen, 1)
 
-            clock.tick(FPS)
-            pygame.display.flip()
+                            self.running = False
+                        elif reaction == "2P":
+                            self.button_sound.play()
+                            mixer.music.set_volume(0.5)
+                            LevelChoose(self, screen, 2)
+
+                            self.running = False
+
+                    clock.tick(FPS)
+                    pygame.display.flip()
+            except Exception:
+                print("Завершение работы приложения")
+                pygame.quit()
         pygame.quit()
 
     def fon(self):
@@ -64,5 +84,5 @@ class HelloScene:  # После нажатия любой клавиши дол�
 
 
 if __name__ == '__main__':
-    pygame.display.set_caption("Заготовки")
+    pygame.display.set_caption("Overcooked - our edition")
     scene = HelloScene(width, height)

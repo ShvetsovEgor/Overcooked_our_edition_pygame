@@ -1,9 +1,8 @@
 import pygame
-buttongroup = pygame.sprite.Group()
 
 
 class Button(pygame.sprite.Sprite):
-    def __init__(self, screen, x, y, text, color):
+    def __init__(self, screen, x, y, buttongroup, text, color):
         super().__init__(buttongroup)
         self.text = text
         font = pygame.font.Font(None, 100)
